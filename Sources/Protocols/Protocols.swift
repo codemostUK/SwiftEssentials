@@ -142,11 +142,3 @@ extension NotificationSubscriber {
         subscribers?.unsubscribeAndRemoveAll()
     }
 }
-
-extension SegueIdentifiable {
-    static var segueIdentifier: String {
-        get {
-            String("segueTo\(Self.identifier)")
-        }
-    }
-}

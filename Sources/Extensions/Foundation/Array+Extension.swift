@@ -66,14 +66,6 @@ extension Array where Element: NSLayoutConstraint {
 /// Provides utility methods for managing the visibility, alpha, and hierarchy of views.
 extension Array where Element: UIView {
 
-    /// Toggles the visibility of all views in the array.
-    /// - Parameter isVisible: A boolean indicating whether the views should be visible or hidden.
-    func toggleVisibility(isVisible: Bool) {
-        self.forEach { view in
-            view.visible = isVisible
-        }
-    }
-
     /// Sets the alpha value for all views in the array.
     /// - Parameter newValue: The new alpha value to set.
     func setAlpha(_ newValue: CGFloat) {
