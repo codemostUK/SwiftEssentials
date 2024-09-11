@@ -21,9 +21,9 @@ Pod::Spec.new do |s|
                         Designed to be easily integrated and utilized in your iOS projects, SwiftEssentials helps in speeding up development and improving code quality.
                        DESC
 
-  s.source           = { :git => 'https://github.com/codemostUK/SwiftEssentials',
+  s.source           = { :git => 'https://github.com/codemostUK/SwiftEssentials.git',
  								 :tag => s.version.to_s }
-  s.source_files     = 'SwiftEssentials/Classes/**/*.{swift}', 'SwiftEssentials/Extensions/**/*.{swift}', 'SwiftEssentials/Helpers/**/*.{swift}', 'SwiftEssentials/Protocols/**/*.{swift}', 'SwiftEssentials.swift'
+  s.source_files     = 'Sources/Classes/**/*.{swift}', 'Sources/Extensions/**/*.{swift}', 'Sources/Helpers/**/*.{swift}', 'Sources/Protocols/**/*.{swift}', 'Sources/SwiftEssentials.swift'
   s.documentation_url = 'https://github.com/codemostUK/SwiftEssentials/blob/main/README.md'
   s.requires_arc    = true
   s.ios.deployment_target = '13.0'
