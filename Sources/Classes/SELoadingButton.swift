@@ -8,22 +8,22 @@
 import UIKit
 
 /// A UIButton subclass that shows a loading indicator when active.
-public class SELoadingButton: UIButton {
+open class SELoadingButton: UIButton {
 
     private var activityIndicator: UIActivityIndicatorView?
 
     /// Enum to define the possible positions of the loading indicator.
-    enum IndicatorPosition {
+    public enum IndicatorPosition {
         case left
         case middle
         case right
     }
 
     /// The position of the loading indicator relative to the button's title.
-    var indicatorPosition: IndicatorPosition = .middle
+    public var indicatorPosition: IndicatorPosition = .middle
 
     /// The color of the loading indicator.
-    @IBInspectable var indicatorColor: UIColor = .gray {
+    @IBInspectable public var indicatorColor: UIColor = .gray {
         didSet {
             activityIndicator?.color = indicatorColor
         }
@@ -54,7 +54,7 @@ public class SELoadingButton: UIButton {
     }
 
     /// Sets up the constraints for positioning the loading indicator.
-    private func setupConstraints() {
+    open func setupConstraints() {
         activityIndicator?.translatesAutoresizingMaskIntoConstraints = false
         var horizontalConstraint: NSLayoutConstraint
 

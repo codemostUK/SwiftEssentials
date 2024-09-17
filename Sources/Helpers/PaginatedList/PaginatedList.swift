@@ -12,34 +12,51 @@ import Foundation
 public struct PaginatedList {
 
     /// The number of items per page. Defaults to `PaginatedList.defaultPageSize`.
-    var pageSize: Int = PaginatedList.defaultPageSize
+    public var pageSize: Int = PaginatedList.defaultPageSize
 
     /// The index of the current page, starting at 0.
-    var pageIndex: Int = 0
+    public var pageIndex: Int = 0
 
     /// The list of items being paginated.
-    var items: [AnyObject] = []
+    public var items: [AnyObject] = []
 
     /// A flag that indicates if there is a next page to load.
-    var hasNextPage: Bool = false
+    public var hasNextPage: Bool = false
 
     /// The ID of the last item in the list, used for pagination purposes.
-    var lastItemId: Int?
+    public var lastItemId: Int?
 
     /// A computed property that checks if the current page has been fully loaded based on the unfiltered item count.
-    var isCurrentPageLoaded: Bool {
+    public var isCurrentPageLoaded: Bool {
         return unfilteredCount == (pageIndex + 1) * pageSize
     }
 
     /// An optional identifier for the paginated list.
-    var identifier: String?
+    public var identifier: String?
 
     /// The total count of items without filtering applied.
-    var unfilteredCount: Int = 0
+    public var unfilteredCount: Int = 0
+
+    /// Public initializer to create an instance of `PaginatedList`.
+    public init(pageSize: Int = PaginatedList.defaultPageSize,
+                pageIndex: Int = 0,
+                items: [AnyObject] = [],
+                hasNextPage: Bool = false,
+                lastItemId: Int? = nil,
+                identifier: String? = nil,
+                unfilteredCount: Int = 0) {
+        self.pageSize = pageSize
+        self.pageIndex = pageIndex
+        self.items = items
+        self.hasNextPage = hasNextPage
+        self.lastItemId = lastItemId
+        self.identifier = identifier
+        self.unfilteredCount = unfilteredCount
+    }
 
     /// Adds new items to the list and updates the unfiltered item count.
     /// - Parameter items: The items to add to the list.
-    mutating func add(_ items: [AnyObject]) {
+    public mutating func add(_ items: [AnyObject]) {
         add(items, unfilteredCount: items.count)
     }
 
@@ -47,7 +64,7 @@ public struct PaginatedList {
     /// - Parameters:
     ///   - filteredItems: The filtered items to add to the list.
     ///   - unfilteredCount: The total count of unfiltered items.
-    mutating func add(_ filteredItems: [AnyObject], unfilteredCount: Int) {
+    public mutating func add(_ filteredItems: [AnyObject], unfilteredCount: Int) {
         self.items.append(contentsOf: filteredItems)
         self.unfilteredCount += unfilteredCount
         hasNextPage = unfilteredCount == pageSize
@@ -55,12 +72,12 @@ public struct PaginatedList {
 
     /// Sets the ID of the last item in the list.
     /// - Parameter lastItemId: The ID of the last item.
-    mutating func setLastItemId(_ lastItemId: Int) {
+    public mutating func setLastItemId(_ lastItemId: Int) {
         self.lastItemId = lastItemId
     }
 
     /// Resets the paginated list, clearing all items and resetting the pagination state.
-    mutating func reset() {
+    public mutating func reset() {
         self.pageIndex = 0
         self.unfilteredCount = 0
         self.items = []
@@ -78,7 +95,7 @@ public protocol Paginatable {
     var items: [Item] { get }
 }
 
-extension PaginatedList {
+public extension PaginatedList {
     /// The default page size used by paginated lists.
     static var defaultPageSize: Int = 20
 }

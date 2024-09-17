@@ -344,6 +344,29 @@ public extension String {
     var isValidTCKN: Bool {
         return self.count == 11
     }
+
+    /// A computed property that returns the length of the string (number of characters).
+    var length: Int {
+        return count
+    }
+
+    /// Returns a substring starting from the specified `fromIndex` to the end of the string.
+    ///
+    /// - Parameter fromIndex: The starting index from which the substring will be taken.
+    /// - Returns: A substring starting at `fromIndex` and extending to the end of the string.
+    /// If `fromIndex` is greater than the length of the string, an empty string is returned.
+    func substring(fromIndex: Int) -> String {
+        return self[min(fromIndex, length) ..< length]
+    }
+
+    /// Returns a substring from the beginning of the string to the specified `toIndex`.
+    ///
+    /// - Parameter toIndex: The ending index for the substring (non-inclusive).
+    /// - Returns: A substring from the start of the string to `toIndex`. If `toIndex` is less than zero,
+    /// the function returns an empty string.
+    func substring(toIndex: Int) -> String {
+        return self[0 ..< max(0, toIndex)]
+    }
 }
 
 

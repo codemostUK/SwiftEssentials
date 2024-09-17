@@ -21,6 +21,7 @@
 		2F2A7CCD2C91B48700B3BF03 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CC42C91B48700B3BF03 /* PaddingLabel.swift */; };
 		2F2A7CCE2C91B48700B3BF03 /* PasteDisabledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CC52C91B48700B3BF03 /* PasteDisabledTextField.swift */; };
 		2F2A7CCF2C91B48700B3BF03 /* TapToRespondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CC62C91B48700B3BF03 /* TapToRespondView.swift */; };
+		2F7206E12C987D2F006AA871 /* SEAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7206E02C987D2F006AA871 /* SEAnimatedImageView.swift */; };
 		2FB411662C907A0C0086760B /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411612C907A0C0086760B /* Protocols.swift */; };
 		2FB411672C907A0C0086760B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411632C907A0C0086760B /* Array+Extension.swift */; };
 		2FB4116B2C9080230086760B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4116A2C9080230086760B /* Date+Extension.swift */; };
@@ -99,6 +100,7 @@
 		2F2A7CC42C91B48700B3BF03 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		2F2A7CC52C91B48700B3BF03 /* PasteDisabledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteDisabledTextField.swift; sourceTree = "<group>"; };
 		2F2A7CC62C91B48700B3BF03 /* TapToRespondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapToRespondView.swift; sourceTree = "<group>"; };
+		2F7206E02C987D2F006AA871 /* SEAnimatedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEAnimatedImageView.swift; sourceTree = "<group>"; };
 		2FB411572C9079510086760B /* libSwiftEssentials.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftEssentials.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FB411612C907A0C0086760B /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		2FB411632C907A0C0086760B /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		2FB411C72C90A6E00086760B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2F7206E02C987D2F006AA871 /* SEAnimatedImageView.swift */,
 				2FB411CD2C90AD180086760B /* SECircularCountDownView.swift */,
 				2FB411CB2C90A8790086760B /* SELoadingButton.swift */,
 				2FB411C92C90A7600086760B /* SEUILabel.swift */,
@@ -471,6 +474,7 @@
 				2FB411B62C9099820086760B /* UISearchBar+Extension.swift in Sources */,
 				2FB4117B2C908A450086760B /* BezierPath+Extension.swift in Sources */,
 				2FB411AD2C9099820086760B /* UIDevice+Extension.swift in Sources */,
+				2F7206E12C987D2F006AA871 /* SEAnimatedImageView.swift in Sources */,
 				2FB411932C9093480086760B /* UITableView+Extensions.swift in Sources */,
 				2FB4118E2C908F640086760B /* ExpandableByKeyboardController.swift in Sources */,
 				2FB411B22C9099820086760B /* UIStackView+Extension.swift in Sources */,

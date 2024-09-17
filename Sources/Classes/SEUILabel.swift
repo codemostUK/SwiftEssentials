@@ -7,4 +7,4 @@
 import UIKit
 
 /// A `UILabel` subclass with additional functionality for setting corner radius using Interface Builder attributes.
-final public class SEUILabel: UILabel {}
+open class SEUILabel: UILabel {}

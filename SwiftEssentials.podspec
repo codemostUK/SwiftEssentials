@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SwiftEssentials'
   s.module_name      = 'SwiftEssentials'
-  s.version          = '1.0.1'
+  s.version          = '1.0.3'
   s.license          = { :type => 'Copyright', :text => <<-LICENSE
 									Copyright 2024
 									Codemost Limited. 

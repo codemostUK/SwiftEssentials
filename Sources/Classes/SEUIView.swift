@@ -4,11 +4,12 @@
 //
 //  Created by Tolga Seremet on 22.03.2023.
 //
+
 import UIKit
 
 /// A `UIView` subclass with additional functionality for setting corner radius, border, and shadow properties using Interface Builder attributes.
-final public class SEUIView: UIView {
-    
+open class SEUIView: UIView {
+
     /// The color of the view's border. Setting this value will update the layer's border color.
     @IBInspectable public var borderColor: UIColor? {
         get {
@@ -19,7 +20,7 @@ final public class SEUIView: UIView {
             layer.borderColor = newValue?.cgColor
         }
     }
-    
+
     /// The width of the view's border. This value is applied to the layer's border width property.
     @IBInspectable public var borderWidth: CGFloat {
         get {
@@ -29,7 +30,7 @@ final public class SEUIView: UIView {
             layer.borderWidth = newValue
         }
     }
-        
+
     /// The color of the view's shadow. Setting this value will update the layer's shadow color.
     @IBInspectable public var shadowColor: UIColor? {
         get {
@@ -47,7 +48,7 @@ final public class SEUIView: UIView {
             return layer.shadowOffset
         }
         set {
-            layer.shadowOffset = .zero
+            layer.shadowOffset = newValue
         }
     }
 

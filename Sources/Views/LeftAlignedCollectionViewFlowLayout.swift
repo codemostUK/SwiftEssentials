@@ -10,10 +10,10 @@ import UIKit
 /// A custom `UICollectionViewFlowLayout` that aligns items to the left within a collection view.
 /// It adjusts the `x` position of each item to ensure they are aligned to the left,
 /// while respecting section insets and inter-item spacing.
-class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
+open class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
     /// Initializes the layout with predefined section insets and spacing.
-    override init() {
+    public override init() {
         super.init()
         sectionInset = .init(top: 10, left: 16, bottom: 10, right: 16)
         minimumLineSpacing = 5
@@ -21,7 +21,7 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     }
 
     /// Required initializer when decoding from Interface Builder (not implemented here).
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -29,7 +29,7 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
     /// Adjusts the `x` position of items to align them to the left within the collection view's bounds.
     /// - Parameter rect: The rectangle (in the collection view's coordinate system) that defines the area for which layout attributes are needed.
     /// - Returns: An array of `UICollectionViewLayoutAttributes` objects representing the layout attributes for all the cells and views in the specified rectangle.
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
 
         var leftMargin = sectionInset.left

@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIButton {
+public extension UIButton {
 
     /// A collection of all possible control states that the button can be in.
     private var states: [UIControl.State] {

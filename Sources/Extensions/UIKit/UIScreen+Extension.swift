@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIScreen {
+public extension UIScreen {
 
     /// Returns the width of the screen.
     /// - Returns: The width of the screen.

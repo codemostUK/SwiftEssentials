@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIView {
+public extension UIView {
 
     /// The corner radius applied to the view's layer.
     ///
@@ -252,7 +252,7 @@ extension UIView {
     }
 }
 
-extension UIView {
+public extension UIView {
 
     /// Returns PNG data representation of the view with an optional fill color.
     ///
@@ -281,7 +281,7 @@ extension UIView {
     }
 }
 
-extension UIView {
+public extension UIView {
 
     /// Captures a snapshot of the view within an optional frame and fill color.
     ///

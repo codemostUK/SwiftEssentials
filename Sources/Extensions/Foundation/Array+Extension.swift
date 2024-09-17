@@ -12,7 +12,7 @@ import UIKit
 
 /// Extension for `Array` where the elements are `FloatingPoint` numbers.
 /// Provides utility methods for calculating the sum and average of the array elements.
-extension Array where Element: FloatingPoint {
+public extension Array where Element: FloatingPoint {
 
     /// Computes the sum of all elements in the array.
     var sum: Element {
@@ -31,7 +31,7 @@ extension Array where Element: FloatingPoint {
 
 /// Extension for `Array` where the elements are `UILabel` objects.
 /// Provides methods for managing text in the labels.
-extension Array where Element: UILabel {
+public extension Array where Element: UILabel {
 
     /// Clears the text of all labels in the array.
     func clearText() {
@@ -51,7 +51,7 @@ extension Array where Element: UILabel {
 
 /// Extension for `Array` where the elements are `NSLayoutConstraint` objects.
 /// Provides a method to update the constant value of each constraint.
-extension Array where Element: NSLayoutConstraint {
+public extension Array where Element: NSLayoutConstraint {
 
     /// Updates the constant value of all constraints in the array.
     /// - Parameter constant: The new constant value to set.
@@ -64,7 +64,15 @@ extension Array where Element: NSLayoutConstraint {
 
 /// Extension for `Array` where the elements are `UIView` objects.
 /// Provides utility methods for managing the visibility, alpha, and hierarchy of views.
-extension Array where Element: UIView {
+public extension Array where Element: UIView {
+
+    /// Toggles the visibility of all views in the array.
+    /// - Parameter isVisible: A Boolean value that determines whether the views should be visible (`true`) or hidden (`false`).
+    func toggleVisibility(isVisible: Bool) {
+        self.forEach { view in
+            view.visible = isVisible
+        }
+    }
 
     /// Sets the alpha value for all views in the array.
     /// - Parameter newValue: The new alpha value to set.
@@ -84,7 +92,7 @@ extension Array where Element: UIView {
 
 /// Extension for `Array` where the elements are `Equatable`.
 /// Provides a method to remove a specific element from the array.
-extension Array where Element: Equatable {
+public extension Array where Element: Equatable {
 
     /// Removes the first occurrence of the specified element from the array.
     /// - Parameter element: The element to remove.
@@ -97,7 +105,7 @@ extension Array where Element: Equatable {
 
 /// Extension for `Array` where the elements are `NSObjectProtocol`.
 /// Provides a method to unsubscribe and remove all elements.
-extension Array where Element == NSObjectProtocol {
+public extension Array where Element == NSObjectProtocol {
 
     /// Unsubscribes all elements from notifications and removes them from the array.
     mutating func unsubscribeAndRemoveAll() {
@@ -110,7 +118,7 @@ extension Array where Element == NSObjectProtocol {
 
 /// General extension for `Array`.
 /// Provides a method to safely access elements by index.
-extension Array {
+public extension Array {
 
     /// Safely retrieves the element at the specified index, if it exists.
     /// - Parameter index: The index of the element to retrieve.

@@ -13,7 +13,7 @@ public protocol SECircularCountDownViewDelegate: AnyObject {
     func timeOver(countDownView: SECircularCountDownView)
 }
 
-final public class SECircularCountDownView: UIView {
+open class SECircularCountDownView: UIView {
 
     private lazy var countDownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     private let backgroundLayer = CAShapeLayer()
@@ -68,24 +68,24 @@ final public class SECircularCountDownView: UIView {
     @IBInspectable public var countDownLabelSuffix: String = ""
 
     /// The delegate to notify when the countdown finishes.
-    weak var delegate: SECircularCountDownViewDelegate?
+    public weak var delegate: SECircularCountDownViewDelegate?
 
     // MARK: - Initializers
 
     /// Initializes the view with a frame.
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
 
     /// Initializes the view from a storyboard or xib.
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
 
     /// Common initialization code.
-    private func commonInit() {
+    open func commonInit() {
         updateLayers()
         countDownLabel.font = font
         countDownLabel.textColor = textColor
@@ -99,7 +99,7 @@ final public class SECircularCountDownView: UIView {
     // MARK: - Private Methods
 
     /// Updates the layers for the progress and track bars.
-    private func updateLayers() {
+    open func updateLayers() {
         backgroundLayer.removeFromSuperlayer()
         progressLayer.removeFromSuperlayer()
         let path = UIBezierPath(arcCenter: CGPoint(x: self.frame.size.width / 2.0, y: self.frame.size.height / 2.0),
@@ -123,14 +123,14 @@ final public class SECircularCountDownView: UIView {
     }
 
     /// Updates the countdown label with the remaining time.
-    private func updateLabel(remainingTime: Int) {
+    open func updateLabel(remainingTime: Int) {
         self.countDownLabel.text = "\(remainingTime)" + countDownLabelSuffix
     }
 
     // MARK: - Public Methods
 
     /// Starts the countdown and animates the progress layer.
-    public func start() {
+    open func start() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
         animation.toValue = 1.0

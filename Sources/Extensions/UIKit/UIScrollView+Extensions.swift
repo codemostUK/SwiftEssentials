@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 
-extension UIScrollView {
+public extension UIScrollView {
 
     /// Scrolls the scroll view to the top.
     ///
@@ -26,7 +26,7 @@ extension UIScrollView {
     ///   - view: The view to scroll to.
     ///   - position: The position of the view in the scroll view (top, middle, or bottom). Default is `.middle`.
     ///   - animated: A boolean indicating whether the scrolling should be animated.
-    public func scrollToView(view: UIView, position: ScrollPosition = .middle, animated: Bool) {
+    func scrollToView(view: UIView, position: ScrollPosition = .middle, animated: Bool) {
         if let origin = view.superview {
             let childStartPoint = origin.convert(view.frame.origin, to: self)
             var height: CGFloat = 0
@@ -43,7 +43,7 @@ extension UIScrollView {
         }
     }
 
-    public enum ScrollPosition {
+    enum ScrollPosition {
         case top
         case middle
         case bottom

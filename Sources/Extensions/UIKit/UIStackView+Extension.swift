@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIStackView {
+public extension UIStackView {
 
     /// Removes all arranged subviews from the stack view.
     ///

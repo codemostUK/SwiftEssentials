@@ -10,15 +10,15 @@ import Network
 
 /// A network monitor class that tracks the device's connectivity and connection type.
 /// It uses `NWPathMonitor` to observe changes in network status and posts notifications when the connection state changes.
-final class SENetworkMonitor {
+open class SENetworkMonitor {
 
     /// Returns `true` if the device is connected to the internet.
-    static var isConnected: Bool {
+    public static var isConnected: Bool {
         return SENetworkMonitor.shared.isConnected
     }
 
     /// Returns the current connection type (Wi-Fi, Cellular, or None).
-    static var connectionType: ConnectionType {
+    public static var connectionType: ConnectionType {
         return SENetworkMonitor.shared.connectionType
     }
 
@@ -44,9 +44,9 @@ final class SENetworkMonitor {
     private let queue = DispatchQueue.global()
 
     /// Initializes the network monitor and starts observing network changes.
-    private init() {
+    public init() {
         monitor.pathUpdateHandler = { [weak self] path in
-            guard let self else { return }
+            guard let self = self else { return }
             self.isConnected = path.status == .satisfied
 
             if path.usesInterfaceType(.wifi) {
@@ -60,21 +60,21 @@ final class SENetworkMonitor {
     }
 
     /// Enum representing the types of network connections.
-    enum ConnectionType {
+    public enum ConnectionType {
         case wifi
         case cellular
         case none
     }
 
     /// The current connection type, set when a network change is detected.
-    private(set) var connectionType: ConnectionType = .none {
+    public private(set) var connectionType: ConnectionType = .none {
         didSet {
             postNotification(.SENetworkMonitorConnectionTypeChanged)
         }
     }
 
     /// Starts monitoring the network status.
-    static func startMonitoring() {
+    public static func startMonitoring() {
         shared.startMonitoring()
     }
 
@@ -85,7 +85,7 @@ final class SENetworkMonitor {
 }
 
 // MARK: - Notification
-extension NSNotification.Name {
+public extension NSNotification.Name {
     static let SENetworkMonitorConnected = Notification.Name("SENetworkMonitorConnected")
     static let SENetworkMonitorDisconnected = Notification.Name("SENetworkMonitorDisconnected")
     static let SENetworkMonitorConnectionTypeChanged = Notification.Name("SENetworkMonitorConnectionTypeChanged")
@@ -93,7 +93,7 @@ extension NSNotification.Name {
 
 // MARK: - Error
 /// Custom errors for `SENetworkMonitor`, such as no internet connection.
-enum SENetworkMonitorError: Int, Error {
+public enum SENetworkMonitorError: Int, Error {
     case noInternetConnection = 999
 }
 

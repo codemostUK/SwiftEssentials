@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UITextView {
+public extension UITextView {
 
     /// Sets highlighted text for URLs within the text view.
     ///
@@ -49,7 +49,6 @@ extension UITextView {
         keyboardToolBar.sizeToFit()
 
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.donePressed))
 
         keyboardToolBar.setItems([flexibleSpace, doneButton], animated: true)

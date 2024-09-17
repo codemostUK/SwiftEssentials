@@ -8,10 +8,10 @@
 import UIKit
 
 /// A utility structure for validating form inputs based on a set of predefined rules.
-struct FormValidator {
+public struct FormValidator {
 
     /// Enumeration of validation rules for various types of input fields.
-    enum Rule {
+    public enum Rule {
         case email
         case nonWhitespace(length: Int)
         case password
@@ -22,7 +22,7 @@ struct FormValidator {
         case date
 
         /// The regular expression pattern for the validation rule, if applicable.
-        var regexValue: String? {
+        public var regexValue: String? {
             switch self {
                 case .email:
                     return "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$"
@@ -56,7 +56,7 @@ struct FormValidator {
         }
 
         /// The error message associated with a failed validation for the rule.
-        var errorString: String {
+        public var errorString: String {
             switch self {
                 case .email:
                     return NSLocalizedString("Geçerli bir e-posta girin", comment: "Uyelik formu hata mesaji")
@@ -102,7 +102,7 @@ struct FormValidator {
     ///   - text: The string to validate.
     ///   - rule: The rule to validate against.
     /// - Returns: `true` if the string passes validation, `false` otherwise.
-    static func validateRule(_ text: String, rule: Rule) -> Bool {
+    public static func validateRule(_ text: String, rule: Rule) -> Bool {
         switch rule {
             case .email, .password, .nickname, .profileBioLink, .tckn:
                 return validateRegex(text, regex: rule.regexValue)

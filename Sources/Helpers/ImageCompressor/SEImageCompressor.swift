@@ -9,7 +9,7 @@ import UIKit
 
 /// A utility struct for compressing `UIImage` instances to a target size in bytes.
 /// Compression is done iteratively, reducing the image dimensions and quality until the image meets the specified size.
-struct SEImageCompressor {
+public struct SEImageCompressor {
 
     /// Compresses the given image to a size as close as possible to the specified maximum byte size.
     /// The compression progress is broadcast using notifications.
@@ -17,7 +17,7 @@ struct SEImageCompressor {
     ///   - image: The `UIImage` to be compressed.
     ///   - maxByte: The target maximum size of the compressed image in bytes.
     /// - Returns: A compressed `UIImage` that is within the specified size limit, or `nil` if compression fails.
-    static func compress(image: UIImage, maxByte: Int) async -> UIImage? {
+    public static func compress(image: UIImage, maxByte: Int) async -> UIImage? {
 
         // Get the current image size in bytes
         guard let currentImageSize = image.jpegData(compressionQuality: 1.0)?.count else { return nil }
@@ -59,7 +59,7 @@ struct SEImageCompressor {
     /// Determines the percentage by which the image dimensions should be reduced based on the current size.
     /// - Parameter dataCount: The current size of the image in bytes.
     /// - Returns: The percentage decrease to apply for the next iteration of compression.
-    private static func getPercentageToDecreaseTo(forDataCount dataCount: Int) -> CGFloat {
+    public static func getPercentageToDecreaseTo(forDataCount dataCount: Int) -> CGFloat {
         switch dataCount {
             case 0..<5000000: return 0.03
             case 5000000..<10000000: return 0.1
@@ -69,11 +69,11 @@ struct SEImageCompressor {
 }
 
 // MARK: - Notification
-extension NSNotification.Name {
+public extension NSNotification.Name {
     static let imageCompressorProgressChanged = Notification.Name("SEImageCompressor.ImageCompressorProgressChanged")
 }
 
 // MARK: - Userinfo Key
-extension String {
+public extension String {
     static let userInfoKeySEImageCompressorProgress = "userInfoKeySEImageCompressorProgress"
 }

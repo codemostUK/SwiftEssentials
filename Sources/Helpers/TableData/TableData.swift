@@ -8,7 +8,7 @@
 import UIKit
 
 /// Protocol defining the data required for table view rendering.
-protocol TableData {
+public protocol TableData {
 
     /// Registers the cells and header/footer views that the table view will use.
     /// - Returns: A tuple containing an array of cell identifiers and an array of header/footer view identifiers to register.
@@ -62,7 +62,7 @@ protocol TableData {
     func dataAtLastIndexPath() -> AnyObject?
 }
 
-extension TableData {
+public extension TableData {
 
     func isConforming(_ delegate: Any?) -> Bool { true }
     
@@ -87,21 +87,21 @@ extension TableData {
 }
 
 //MARK: - Renderer
-protocol TableDataRendererDelegate: NSObjectProtocol {
+public protocol TableDataRendererDelegate: NSObjectProtocol {
     func didSelectRowAt(_ indexPath: IndexPath)
     func didDeSelectRowAt(_ indexPath: IndexPath)
 }
 
-extension TableDataRendererDelegate {
+public extension TableDataRendererDelegate {
     func didDeSelectRowAt(_ indexPath: IndexPath) { }
 }
 
-class TableDataRenderer: NSObject {
-    var tableData: TableData
-    weak var delegate: NSObjectProtocol?
-    weak var tableView: UITableView?
-    
-    init?(tableData: TableData, tableView: UITableView, delegate: NSObjectProtocol? = nil) {
+open class TableDataRenderer: NSObject {
+    public var tableData: TableData
+    weak public var delegate: NSObjectProtocol?
+    weak public var tableView: UITableView?
+
+    public init?(tableData: TableData, tableView: UITableView, delegate: NSObjectProtocol? = nil) {
         guard tableData.isConforming(delegate) else { return nil }
         self.tableData = tableData
         self.delegate = delegate
@@ -117,7 +117,7 @@ class TableDataRenderer: NSObject {
         tableView.reloadData()
     }
     
-    func updateData(_ tableData: TableData) {
+    public func updateData(_ tableData: TableData) {
         self.tableData = tableData
         let registerItems = tableData.itemsToRegister()
         tableView?.register(cells: registerItems.cells, headerFooterViews: registerItems.headerFooterViews)
@@ -130,8 +130,8 @@ class TableDataRenderer: NSObject {
 }
 
 extension TableDataRenderer: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+   public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let cellType = tableData.cellClassAt(indexPath) as? VariableHeight.Type {
             return cellType.heightForData(tableData.dataAt(indexPath), isLastItem: tableData.isLastItemAt(indexPath))
         } else if let cellType = tableData.cellClassAt(indexPath) as? FixedHeight.Type {
@@ -140,7 +140,7 @@ extension TableDataRenderer: UITableViewDelegate {
         return 44.0 //APPLE default height
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? LastMarkable {
             cell.isLastItem = tableData.isLastItemAt(indexPath)
         }
@@ -154,17 +154,17 @@ extension TableDataRenderer: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let delegate = delegate as? TableDataRendererDelegate else { return }
         delegate.didSelectRowAt(indexPath)
     }
 
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let delegate = delegate as? TableDataRendererDelegate else { return }
         delegate.didDeSelectRowAt(indexPath)
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if let headerViewType = tableData.headerFooterViewClassAt(section, isHeader: true) as? VariableHeight.Type {
             return headerViewType.heightForData(tableData.dataAt(section, isHeader: true), isLastItem: false)
         }
@@ -174,14 +174,14 @@ extension TableDataRenderer: UITableViewDelegate {
         return .zero
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let identifier = tableData.headerFooterViewClassAt(section, isHeader: true)?.identifier {
             return tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         }
         return nil
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? DataSettable {
             view.data = tableData.dataAt(section, isHeader: true)
         }
@@ -191,14 +191,14 @@ extension TableDataRenderer: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if let identifier = tableData.headerFooterViewClassAt(section, isHeader: false)?.identifier {
             return tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         }
         return nil
     }
     
-    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+    public func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         if let view = view as? DataSettable {
             view.data = tableData.dataAt(section, isHeader: false)
         }
@@ -207,7 +207,7 @@ extension TableDataRenderer: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if let footerViewType = tableData.headerFooterViewClassAt(section, isHeader: false) as? FixedHeight.Type {
             return footerViewType.height
         }
@@ -218,15 +218,15 @@ extension TableDataRenderer: UITableViewDelegate {
 // MARK: - <UITableViewDataSource>
 extension TableDataRenderer: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return tableData.numberOfSections()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableData.numberOfRowsAt(section)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(withIdentifier: tableData.cellClassAt(indexPath).identifier, for: indexPath)
     }
 }

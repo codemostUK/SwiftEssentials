@@ -7,7 +7,7 @@
 
 import UIKit
 
-final public class SEAnimatedImageView: UIImageView {
+open class SEAnimatedImageView: UIImageView {
     public var imageName: String?
     public var frameCount: Int = 0
     public var duration: TimeInterval = 2

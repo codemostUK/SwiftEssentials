@@ -7,33 +7,33 @@
 
 import UIKit
 
-/// A controller that manages a view's layout, expanding it when the keyboard appears and shrinking it when the keyboard hides.
-final class ExpandableByKeyboardController: NSObject, NotificationSubscriber {
+/// An open controller that manages a view's layout, expanding it when the keyboard appears and shrinking it when the keyboard hides.
+open class ExpandableByKeyboardController: NSObject, NotificationSubscriber {
 
-    @IBOutlet weak var scrollView: UIScrollView! {
+    @IBOutlet public weak var scrollView: UIScrollView! {
         didSet {
             addSubscribers() // Add keyboard notification subscribers when the scrollView is set.
         }
     }
 
-    @IBOutlet weak var constraint: NSLayoutConstraint! {
+    @IBOutlet public weak var constraint: NSLayoutConstraint! {
         didSet {
             addSubscribers() // Add keyboard notification subscribers when the constraint is set.
         }
     }
 
-    @IBOutlet weak var parentView: UIView! {
+    @IBOutlet public weak var parentView: UIView! {
         didSet {
             addSubscribers() // Add keyboard notification subscribers when the parentView is set.
         }
     }
 
     /// Additional padding for the scroll view when the keyboard is shown.
-    @IBInspectable var extraPaddingForScrollView: CGFloat = 0
+    @IBInspectable public var extraPaddingForScrollView: CGFloat = 0
 
-    var subscribers: [NSObjectProtocol]?
+    public var subscribers: [NSObjectProtocol]?
 
-    override init() {
+    public override init() {
         super.init()
     }
 
@@ -43,7 +43,7 @@ final class ExpandableByKeyboardController: NSObject, NotificationSubscriber {
 }
 
 // MARK: - Notifications
-extension ExpandableByKeyboardController {
+public extension ExpandableByKeyboardController {
 
     /// Adds subscribers for keyboard show and hide notifications.
     private func addSubscribers() {

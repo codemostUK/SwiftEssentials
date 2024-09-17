@@ -14,15 +14,15 @@ public protocol EmptyTableRendererDelegate: NSObjectProtocol {
 }
 
 /// Protocol for a table view cell used by `EmptyTableRenderer`. The cell must conform to `FixedHeight`.
-protocol EmptyTableRendererCellDelegate: UITableViewCell, FixedHeight {}
+public protocol EmptyTableRendererCellDelegate: UITableViewCell, FixedHeight {}
 
-/// A class for rendering a table view with an empty state using a specific cell type.
-public final class EmptyTableRenderer: NSObject {
+/// An open class for rendering a table view with an empty state using a specific cell type.
+open class EmptyTableRenderer: NSObject {
 
-    private var emptyCellClass: EmptyTableRendererCellDelegate.Type
-    private var emptyCellData: AnyObject?
-    private var tableView: UITableView
-    private weak var delegate: EmptyTableRendererDelegate?
+    public var emptyCellClass: EmptyTableRendererCellDelegate.Type
+    public var emptyCellData: AnyObject?
+    public var tableView: UITableView
+    public weak var delegate: EmptyTableRendererDelegate?
 
     /// Initializes the `EmptyTableRenderer` with the required cell class and table view.
     /// - Parameters:
@@ -30,7 +30,7 @@ public final class EmptyTableRenderer: NSObject {
     ///   - emptyCellData: Optional data to pass to the empty cell.
     ///   - tableView: The table view to render.
     ///   - delegate: An optional delegate to handle user interactions.
-    init(emptyCellClass: EmptyTableRendererCellDelegate.Type, emptyCellData: AnyObject? = nil, tableView: UITableView, delegate: EmptyTableRendererDelegate? = nil) {
+    public init(emptyCellClass: EmptyTableRendererCellDelegate.Type, emptyCellData: AnyObject? = nil, tableView: UITableView, delegate: EmptyTableRendererDelegate? = nil) {
         self.emptyCellClass = emptyCellClass
         self.emptyCellData = emptyCellData
         self.tableView = tableView
@@ -63,7 +63,7 @@ extension EmptyTableRenderer: UITableViewDataSource {
         return .leastNormalMagnitude
     }
 
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: UIView?) -> UIView? {
         return UIView()
     }
 }
@@ -72,9 +72,8 @@ extension EmptyTableRenderer: UITableViewDataSource {
 extension EmptyTableRenderer: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if
-            let emptyCellClass = self.emptyCellClass as? VariableHeight.Type,
-            let data = self.emptyCellData {
+        if let emptyCellClass = self.emptyCellClass as? VariableHeight.Type,
+           let data = self.emptyCellData {
             return emptyCellClass.heightForData(data, isLastItem: false)
         }
         return emptyCellClass.height

@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UISearchBar {
+public extension UISearchBar {
 
     /// A private computed property that creates and configures a `UIActivityIndicatorView`.
     /// - Returns: A configured `UIActivityIndicatorView` instance.

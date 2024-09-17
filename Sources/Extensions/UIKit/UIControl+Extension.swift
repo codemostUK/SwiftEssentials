@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// Extension for UIResponder to provide a unique identifier for each UI element.
-extension UIResponder {
+public extension UIResponder {
 
     /// Returns the class name of the object as a string, which can be used as a unique identifier for UI elements.
     /// - Example: For a `UIButton`, it returns `"UIButton"`.

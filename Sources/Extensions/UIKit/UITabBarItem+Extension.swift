@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UITabBarItem {
+public extension UITabBarItem {
 
     /// A property that allows setting a localized title for the tab bar item.
     ///

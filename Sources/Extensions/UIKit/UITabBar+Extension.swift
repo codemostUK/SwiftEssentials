@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UITabBar {
+public extension UITabBar {
 
     /// Configures the badge font and background color for tab bar items.
     ///

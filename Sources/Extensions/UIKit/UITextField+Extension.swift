@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UITextField {
+public extension UITextField {
 
     /// Sets up a button to toggle the visibility of the password text.
     ///
