@@ -27,12 +27,14 @@ open class SENetworkMonitor {
 
     /// A boolean that tracks the device's connection status.
     private var isConnected: Bool = false {
-        didSet {
-            switch isConnected {
-            case true:
-                postNotification(.SENetworkMonitorConnected)
-            case false:
-                postNotification(.SENetworkMonitorDisconnected)
+        willSet {
+            switch newValue {
+                case true:
+                    guard isConnected == false else { return }
+                    postNotification(.SENetworkMonitorConnected)
+                case false:
+                    guard isConnected == true else { return }
+                    postNotification(.SENetworkMonitorDisconnected)
             }
         }
     }

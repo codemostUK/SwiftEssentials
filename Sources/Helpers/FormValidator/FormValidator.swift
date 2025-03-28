@@ -42,7 +42,7 @@ public struct FormValidator {
 
                 case .profileBioLink:
                     return #"""
-                    ^(?:https?:\/\/)?(?:www.)?(?:facebook.com|x.com|instagram.com|twitter.com)\/\S+
+                    ^(?:https?:\/\/)?(?:www.)?(?:facebook.com|x.com|instagram.com|twitter.com|youtube.com|youtu.be)\/\S+
                     """#
 
                 case .tckn:
@@ -71,7 +71,7 @@ public struct FormValidator {
                     return NSLocalizedString("Kullanıcı adı 4 ile 15 karakter arası olmalı ve sadece harf, rakam, alttan çizgi (_) ve noktadan (.) oluşmalıdır.", comment: "Uyelik formu hata mesaji")
 
                 case .profileBioLink:
-                    return NSLocalizedString("Girdiğiniz bağlantı sadece X.com, Facebook veya Instagram linki olabilir!", comment: "Uyelik formu hata mesaji")
+                    return NSLocalizedString("Girdiğiniz bağlantı sadece X.com, Youtube, Facebook veya Instagram linki olabilir!", comment: "Uyelik formu hata mesaji")
 
                 case .equal:
                     return NSLocalizedString("Tekrar edilen alan diğeriyle aynı olmalı", comment: "Uyelik formu hata mesaji")

@@ -21,6 +21,8 @@
 		2F2A7CCD2C91B48700B3BF03 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CC42C91B48700B3BF03 /* PaddingLabel.swift */; };
 		2F2A7CCE2C91B48700B3BF03 /* PasteDisabledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CC52C91B48700B3BF03 /* PasteDisabledTextField.swift */; };
 		2F2A7CCF2C91B48700B3BF03 /* TapToRespondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CC62C91B48700B3BF03 /* TapToRespondView.swift */; };
+		2F48DEA22D944E6F0020F245 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F48DEA02D944E6F0020F245 /* DeviceInfo.swift */; };
+		2F48DEA42D94510D0020F245 /* WKWebView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F48DEA32D9451050020F245 /* WKWebView+Extension.swift */; };
 		2F7206E12C987D2F006AA871 /* SEAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7206E02C987D2F006AA871 /* SEAnimatedImageView.swift */; };
 		2FB411662C907A0C0086760B /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411612C907A0C0086760B /* Protocols.swift */; };
 		2FB411672C907A0C0086760B /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411632C907A0C0086760B /* Array+Extension.swift */; };
@@ -100,6 +102,8 @@
 		2F2A7CC42C91B48700B3BF03 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		2F2A7CC52C91B48700B3BF03 /* PasteDisabledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteDisabledTextField.swift; sourceTree = "<group>"; };
 		2F2A7CC62C91B48700B3BF03 /* TapToRespondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapToRespondView.swift; sourceTree = "<group>"; };
+		2F48DEA02D944E6F0020F245 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		2F48DEA32D9451050020F245 /* WKWebView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extension.swift"; sourceTree = "<group>"; };
 		2F7206E02C987D2F006AA871 /* SEAnimatedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEAnimatedImageView.swift; sourceTree = "<group>"; };
 		2FB411572C9079510086760B /* libSwiftEssentials.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftEssentials.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FB411612C907A0C0086760B /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -221,6 +225,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2F48DEA12D944E6F0020F245 /* DeviceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2F48DEA02D944E6F0020F245 /* DeviceInfo.swift */,
+			);
+			path = DeviceInfo;
+			sourceTree = "<group>";
+		};
 		2FB4114E2C9079510086760B = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +330,7 @@
 		2FB4118C2C908F640086760B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2F48DEA12D944E6F0020F245 /* DeviceInfo */,
 				2FB411852C908F640086760B /* EmptyTableRenderer */,
 				2FB411872C908F640086760B /* ExpandableByKeyboard */,
 				2FB411892C908F640086760B /* FormValidator */,
@@ -355,6 +368,7 @@
 				2FB411A92C9099820086760B /* UITextView+Extensions.swift */,
 				2FB411A22C9099820086760B /* UIView+Extension.swift */,
 				2FB411A72C9099820086760B /* UIViewController+Extension.swift */,
+				2F48DEA32D9451050020F245 /* WKWebView+Extension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -432,6 +446,7 @@
 				2FB411662C907A0C0086760B /* Protocols.swift in Sources */,
 				2FB411BC2C9099820086760B /* UIScreen+Extension.swift in Sources */,
 				2FB411CC2C90A8790086760B /* SELoadingButton.swift in Sources */,
+				2F48DEA42D94510D0020F245 /* WKWebView+Extension.swift in Sources */,
 				2F2A7CCA2C91B48700B3BF03 /* AttachableView.swift in Sources */,
 				2FB411C32C90A5CD0086760B /* Error+Extension.swift in Sources */,
 				2FB4118D2C908F640086760B /* EmptyTableRenderer.swift in Sources */,
@@ -483,6 +498,7 @@
 				2F2A7CCB2C91B48700B3BF03 /* AutosizeCollectionView.swift in Sources */,
 				2F2A7CBC2C91B2C000B3BF03 /* OptionalWrappers.swift in Sources */,
 				2FB411AC2C9099820086760B /* UICollectionView+Extensions.swift in Sources */,
+				2F48DEA22D944E6F0020F245 /* DeviceInfo.swift in Sources */,
 				2FB411832C908A450086760B /* UserDefaults+Extension.swift in Sources */,
 				2FB411B72C9099820086760B /* UIImageView+Extension.swift in Sources */,
 				2FB411AE2C9099820086760B /* UIColor+Extension.swift in Sources */,

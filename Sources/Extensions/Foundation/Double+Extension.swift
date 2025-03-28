@@ -61,4 +61,9 @@ public extension Double {
     var toInt: Int {
         return Int(self)
     }
+
+    /// Returns the double value formatted as a string with exactly 2 decimal places.
+    var formattedStringWith2DecimalPlaces: String {
+        return String(format: "%.2f", self)
+    }
 }

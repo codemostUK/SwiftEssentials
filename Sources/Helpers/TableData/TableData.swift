@@ -230,3 +230,31 @@ extension TableDataRenderer: UITableViewDataSource {
         return tableView.dequeueReusableCell(withIdentifier: tableData.cellClassAt(indexPath).identifier, for: indexPath)
     }
 }
+
+// MARK: - <UIScrollViewDelegate>
+extension TableDataRenderer: UIScrollViewDelegate {
+
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+        }
+    }
+
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
+        }
+    }
+
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewDidEndDecelerating?(scrollView)
+        }
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewDidScroll?(scrollView)
+        }
+    }
+}

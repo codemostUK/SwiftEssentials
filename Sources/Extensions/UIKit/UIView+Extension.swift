@@ -162,15 +162,21 @@ public extension UIView {
     /// Creates a gradient background for the view.
     ///
     /// - Parameters:
-    ///   - colors: An array of `CGColor` objects to use for the gradient.
+    ///   - colors: An array of optional `CGColor` objects to use for the gradient.
     ///   - startPoint: The start point of the gradient (defaults to `.zero`).
     ///   - endPoint: The end point of the gradient (defaults to `(1, 0)`).
+    ///   - frame: An optional frame for the gradient layer. If `nil`, the view’s bounds are used.
     /// - Returns: The created `CAGradientLayer`.
     @discardableResult
-    func createGradientBackground(for colors: [CGColor?], startPoint: CGPoint = .zero, endPoint: CGPoint = CGPoint(x: 1, y: 0)) -> CAGradientLayer {
-        let gradientLayer = CAGradientLayer()
+    func createGradientBackground(for colors:[CGColor?], startPoint: CGPoint = .zero, endPoint: CGPoint = CGPoint(x: 1, y: 0), frame: CGRect? = nil) -> CAGradientLayer {
+        let gradientLayer:CAGradientLayer = CAGradientLayer()
 
-        gradientLayer.frame = self.bounds
+        if let frame {
+            gradientLayer.frame = frame
+        } else {
+            gradientLayer.frame = self.bounds
+        }
+
         gradientLayer.startPoint = startPoint
         gradientLayer.endPoint = endPoint
         gradientLayer.colors = colors as [Any]

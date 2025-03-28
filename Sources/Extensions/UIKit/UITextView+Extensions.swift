@@ -60,4 +60,42 @@ public extension UITextView {
     @objc private func donePressed() {
         self.resignFirstResponder()
     }
+
+    /// Sets the text view's content from an HTML-formatted string.
+    ///
+    /// This method attempts to convert a given HTML string into an attributed string
+    /// and applies default styling (font, color, paragraph style).
+    /// If the conversion fails, it falls back to setting plain text.
+    /// - Parameter htmlString: A string containing HTML content to render.
+    func setHTMLFromString(_ htmlString: String) {
+        guard let data = htmlString.data(using: .utf8) else {
+            self.text = htmlString
+            return
+        }
+
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+
+        if let attributedString = try? NSMutableAttributedString(data: data, options: options, documentAttributes: nil) {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineBreakMode = .byWordWrapping
+            paragraphStyle.alignment = .left
+
+            attributedString.addAttributes([
+                .foregroundColor: UIColor.label,
+                .font: UIFont.systemFont(ofSize: 14),
+                .paragraphStyle: paragraphStyle
+            ], range: NSRange(location: 0, length: attributedString.length))
+
+            self.attributedText = attributedString
+            self.linkTextAttributes = [
+                .foregroundColor: UIColor.systemBlue,
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ]
+        } else {
+            self.text = htmlString
+        }
+    }
 }

@@ -147,13 +147,18 @@ public extension UIApplication {
     ///   - body: The email body.
     ///   - delegate: The delegate to handle the email result.
     ///   - presentingViewController: The view controller to present the mail compose screen.
-    static func sendAppleMail(to: String, subject: String, body: String, delegate: MFMailComposeViewControllerDelegate?, presentingViewController: UIViewController) {
+    ///   - attachmentText: Optional text to attach.
+    static func sendAppleMail(to: String, subject: String, body: String, delegate: MFMailComposeViewControllerDelegate?, presentingViewController: UIViewController, attachmentText: String?) {
         if MFMailComposeViewController.canSendMail() {
             let composeVC = MFMailComposeViewController()
             composeVC.mailComposeDelegate = delegate
             composeVC.setToRecipients([to])
             composeVC.setSubject(subject)
             composeVC.setMessageBody(body, isHTML: false)
+            if let attachmentText,
+               let data = attachmentText.data(using: .utf8) {
+                composeVC.addAttachmentData(data, mimeType: "text/plain", fileName: "Attachment.txt")
+            }
             presentingViewController.present(composeVC, animated: true, completion: nil)
         }
     }
@@ -163,7 +168,15 @@ public extension UIApplication {
     ///   - to: The recipient email address.
     ///   - subject: The email subject.
     ///   - body: The email body.
-    static func sendGoogleMail(to: String, subject: String, body: String) {
+    ///   - attachmentText: Optional text to attach.
+    ///   - presentingViewController: The view controller to present the alert.
+    static func sendGoogleMail(to: String, subject: String, body: String, attachmentText: String?, presentingViewController: UIViewController) {
+        if let attachmentText {
+            let alert = UIAlertController(title: "Ek dosya desteklenmiyor", message: "Gmail uygulaması üzerinden doğrudan metin eki gönderilemez.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Tamam", style: .default))
+            presentingViewController.present(alert, animated: true)
+            return
+        }
         let customURL = "googlegmail:///co?to=\(to)&subject=\(subject)&body=\(body)"
         guard let encodedString = customURL.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
               let gmailURL = URL(string: encodedString) else { return }
@@ -182,18 +195,19 @@ public extension UIApplication {
     ///   - body: The email body.
     ///   - delegate: The delegate to handle the result of sending the email.
     ///   - presentingViewController: The view controller to present the email client selection.
-    static func showMailAlertSelectionSheetFor(to: String, subject: String, body: String, delegate: MFMailComposeViewControllerDelegate?, presentingViewController: UIViewController) {
+    ///   - attachmentText: Optional text to attach.
+    static func showMailAlertSelectionSheetFor(to: String, subject: String, body: String, delegate: MFMailComposeViewControllerDelegate?, presentingViewController: UIViewController, attachmentText: String?) {
         let alert = UIAlertController(title: NSLocalizedString("Bir e-posta uygulaması seç", comment: "Choose an email app"), message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = .init(named: "AccentColor")!
 
         // Apple Mail option.
         alert.addAction(UIAlertAction(title: NSLocalizedString("Apple Mail", comment: ""), style: .default, handler: { _ in
-            UIApplication.sendAppleMail(to: to, subject: subject, body: body, delegate: delegate, presentingViewController: presentingViewController)
+            UIApplication.sendAppleMail(to: to, subject: subject, body: body, delegate: delegate, presentingViewController: presentingViewController, attachmentText: attachmentText)
         }))
 
         // Gmail option.
         alert.addAction(UIAlertAction(title: NSLocalizedString("Gmail", comment: ""), style: .default, handler: { _ in
-            UIApplication.sendGoogleMail(to: to, subject: subject, body: body)
+            UIApplication.sendGoogleMail(to: to, subject: subject, body: body, attachmentText: attachmentText, presentingViewController: presentingViewController)
         }))
 
         alert.addAction(UIAlertAction(title: NSLocalizedString("İptal", comment: "Cancel"), style: .cancel))
@@ -215,24 +229,26 @@ public extension UIApplication {
     ///   - to: The recipient email address.
     ///   - subject: The email subject.
     ///   - body: The email body.
+    ///   - attachmentText: Optional text to attach.
     ///   - delegate: The delegate to handle the result of sending the email.
     ///   - presentingViewController: The view controller to present the email client selection.
     static func sendSupportEmail(to: String,
                                  subject: String,
                                  body: String,
+                                 attachmentText: String?,
                                  delegate: MFMailComposeViewControllerDelegate?,
                                  presentingViewController: UIViewController) {
         // If both Apple Mail and Gmail are available, show a selection sheet.
         if canOpen(.appleMail) && canOpen(.gmail) {
-            UIApplication.showMailAlertSelectionSheetFor(to: to, subject: subject, body: body, delegate: delegate, presentingViewController: presentingViewController)
+            UIApplication.showMailAlertSelectionSheetFor(to: to, subject: subject, body: body, delegate: delegate, presentingViewController: presentingViewController, attachmentText: attachmentText)
         }
         // If only Apple Mail is available, send via Apple Mail.
         else if canOpen(.appleMail) {
-            UIApplication.sendAppleMail(to: to, subject: subject, body: body, delegate: delegate, presentingViewController: presentingViewController)
+            UIApplication.sendAppleMail(to: to, subject: subject, body: body, delegate: delegate, presentingViewController: presentingViewController, attachmentText: attachmentText)
         }
         // If only Gmail is available, send via Gmail.
         else if canOpen(.gmail) {
-            UIApplication.sendGoogleMail(to: to, subject: subject, body: body)
+            UIApplication.sendGoogleMail(to: to, subject: subject, body: body, attachmentText: attachmentText, presentingViewController: presentingViewController)
         }
     }
 

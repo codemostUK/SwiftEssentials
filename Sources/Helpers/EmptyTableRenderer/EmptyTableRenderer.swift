@@ -13,6 +13,11 @@ public protocol EmptyTableRendererDelegate: NSObjectProtocol {
     func didRequestNewItem()
 }
 
+/// Default implementatuon of EmptyTableRendererDelegate protocol's didRequestNewItem method.
+extension EmptyTableRendererDelegate {
+    func didRequestNewItem() {}
+}
+
 /// Protocol for a table view cell used by `EmptyTableRenderer`. The cell must conform to `FixedHeight`.
 public protocol EmptyTableRendererCellDelegate: UITableViewCell, FixedHeight {}
 
@@ -40,11 +45,18 @@ open class EmptyTableRenderer: NSObject {
     /// Renders the empty table view with the specified empty cell.
     public func render() {
         tableView.register(cells: [emptyCellClass.identifier], headerFooterViews: nil)
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
         tableView.setContentOffset(tableView.contentOffset, animated: false)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.reloadData()
-        tableView.isScrollEnabled = false
+        if let scrollViewDelegate = self.delegate as? UIScrollViewDelegate {
+            tableView.isScrollEnabled = true
+        } else {
+            tableView.isScrollEnabled = false
+        }
     }
 }
 
@@ -88,3 +100,32 @@ extension EmptyTableRenderer: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - UIScrollViewDelegate
+extension EmptyTableRenderer: UIScrollViewDelegate {
+
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+        }
+    }
+
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
+        }
+    }
+
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewDidEndDecelerating?(scrollView)
+        }
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let scrollViewDelegate = delegate as? UIScrollViewDelegate {
+            scrollViewDelegate.scrollViewDidScroll?(scrollView)
+        }
+    }
+}
+

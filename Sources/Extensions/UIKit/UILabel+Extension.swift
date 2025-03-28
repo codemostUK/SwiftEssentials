@@ -61,4 +61,19 @@ public extension UILabel {
             }
         }
     }
+
+    /// Applies underline styling to the label's text.
+    func underline() {
+        guard let text = self.text else { return }
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: text.count))
+        self.attributedText = attributedString
+    }
+
+    /// Removes underline styling from the label's text.
+    func removeUnderline() {
+        guard let text = self.text else { return }
+        let attributedString = NSMutableAttributedString(string: text)
+        self.attributedText = attributedString
+    }
 }

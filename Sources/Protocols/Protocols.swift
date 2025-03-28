@@ -121,6 +121,24 @@ public protocol StoryBoardIdentifiable where Self: UIResponder {
    static var storyBoard: UIStoryboard { get }
 }
 
+/// Represents an element that can control HUD visibility.
+public protocol HudVisibiltySettable: AnyObject {
+    var isHudVisible: Bool { get set }
+}
+
+/// Represents an element that can be reordered.
+public protocol Reorderable {
+    associatedtype OrderElement: Equatable
+    var orderElement: OrderElement { get }
+}
+
+public extension Array where Element: Reorderable {
+    func reorder(by preferredOrder: [Element.OrderElement]) -> [Element] {
+        return preferredOrder.compactMap { key in
+            self.first(where: { $0.orderElement == key })
+        }
+    }
+}
 
 /// Represents an element that responds to tap gestures.
 public protocol TapDelegate: NSObjectProtocol {

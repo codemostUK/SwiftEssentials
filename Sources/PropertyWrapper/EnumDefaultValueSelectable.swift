@@ -44,3 +44,18 @@ public struct False: DefaultCodableInterface {
 public struct EmptyArray<T>: DefaultCodableInterface where T: Codable {
     public static var defaultValue: [T] { [] }
 }
+
+/// A type that provides the default value `0.0` for `Float`.
+public struct FloatZero: DefaultCodableInterface {
+    public static var defaultValue: Float { 0.0 }
+}
+
+/// A type that provides the default value `true` for `Bool`.
+public struct True: DefaultCodableInterface {
+    public static var defaultValue: Bool { true }
+}
+
+/// A type that provides an empty string as the default value.
+public struct EmptyString: DefaultCodableInterface {
+    public static var defaultValue: String { "" }
+}

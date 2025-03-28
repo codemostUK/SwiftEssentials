@@ -37,4 +37,12 @@ public extension UITextField {
             layoutIfNeeded()
         }
     }
+
+    /// Disables predictive text, spell checking, and input assistant bars for the text field.
+    func disablePrediction() {
+        self.autocorrectionType = .no
+        self.spellCheckingType = .no
+        self.inputAssistantItem.leadingBarButtonGroups = []
+        self.inputAssistantItem.trailingBarButtonGroups = []
+    }
 }

@@ -70,4 +70,23 @@ public extension UIImage {
 
         return newImage
     }
+
+    /// Returns a new UIImage scaled to the specified height while maintaining the aspect ratio.
+    /// The width is automatically calculated based on the original aspect ratio.
+    /// - Parameter height: The desired height for the new image.
+    /// - Returns: A new resized UIImage or `nil` if resizing fails.
+    func aspectFitImage(toHeight height: CGFloat) -> UIImage? {
+        let originalWidth = self.size.width
+        let originalHeight = self.size.height
+
+        let scaleFactor = height / originalHeight
+        let newWidth = originalWidth * scaleFactor
+        let newHeight = height
+
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: newWidth, height: newHeight), false, 0.0)
+        defer { UIGraphicsEndImageContext() }
+
+        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
 }

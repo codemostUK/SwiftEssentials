@@ -52,4 +52,43 @@ public extension UIColor {
         let rgb: Int = (Int)(r * 255) << 16 | (Int)(g * 255) << 8 | (Int)(b * 255) << 0
         return String(format: "#%06x", rgb)
     }
+
+    /// Adjusts the brightness of the color by a given factor.
+    /// - Parameter factor: A multiplier for brightness; values > 1.0 increase brightness, values < 1.0 decrease it.
+    /// - Returns: A new `UIColor` instance with adjusted brightness, or the original color if components cannot be extracted.
+    func adjustBrightness(by factor: CGFloat) -> UIColor {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        guard self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            return self // Return the original color if components can't be extracted
+        }
+
+        return UIColor(
+            red: min(max(0, red * factor), 1),
+            green: min(max(0, green * factor), 1),
+            blue: min(max(0, blue * factor), 1),
+            alpha: alpha
+        )
+    }
+
+    /// Returns a color that is 20% darker.
+    func darker() -> UIColor {
+        return adjustBrightness(by: 0.8)
+    }
+    /// Returns a color that is 40% darker.
+    func darkerMore() -> UIColor {
+        return adjustBrightness(by: 0.6)
+    }
+
+    /// Returns a color that is 20% lighter.
+    func lighter() -> UIColor {
+        return adjustBrightness(by: 1.2)
+    }
+    /// Returns a color that is 40% lighter.
+    func lighterMore() -> UIColor {
+        return adjustBrightness(by: 1.4)
+    }
 }
