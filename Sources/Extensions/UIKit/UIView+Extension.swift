@@ -201,8 +201,8 @@ public extension UIView {
         let gradientLayer = CAGradientLayer()
         gradientLayer.locations = [0, 0.4]
         gradientLayer.colors = [UIColor(red: 21/255.0, green: 21/255.0, blue: 21/255.0, alpha: 0.7).cgColor,
-                           UIColor(red: 23/255.0, green: 23/255.0, blue: 23/255.0, alpha: 0.3).cgColor,
-                           UIColor(red: 1, green: 1, blue: 1, alpha: 0).cgColor]
+                                UIColor(red: 23/255.0, green: 23/255.0, blue: 23/255.0, alpha: 0.3).cgColor,
+                                UIColor(red: 1, green: 1, blue: 1, alpha: 0).cgColor]
         gradientLayer.frame = frame
         return gradientLayer
     }
@@ -221,6 +221,21 @@ public extension UIView {
         self.addConstraint(constraint)
     }
 
+    /// Adds a height constraint based on the view’s width and the given aspect ratio.
+    /// - Parameter value: The multiplier to apply to the width to calculate the height.
+    /// - Returns: The created `NSLayoutConstraint`.
+    func addConstraintForAspectRatio(_ value: CGFloat) -> NSLayoutConstraint {
+        let constraint = NSLayoutConstraint(item: self,
+                                            attribute: .height,
+                                            relatedBy: .equal,
+                                            toItem: self,
+                                            attribute: .width,
+                                            multiplier: value,
+                                            constant: 0)
+        self.addConstraint(constraint)
+        return constraint
+    }
+
     /// Adds a height constraint to the view.
     ///
     /// - Parameter value: The height value for the constraint.
@@ -231,6 +246,23 @@ public extension UIView {
                                             relatedBy: .equal,
                                             toItem: nil,
                                             attribute: .notAnAttribute,
+                                            multiplier: 1,
+                                            constant: value)
+        self.addConstraint(constraint)
+        return constraint
+    }
+
+    /// Adds a bottom constraint between the view and another view.
+    /// - Parameters:
+    ///   - value: The constant value for the constraint.
+    ///   - toItem: The view to constrain to.
+    /// - Returns: The created `NSLayoutConstraint`.
+    func addConstraintForBottom(_ value:CGFloat, toItem:UIView) -> NSLayoutConstraint {
+        let constraint = NSLayoutConstraint(item: self,
+                                            attribute: .bottom,
+                                            relatedBy: .equal,
+                                            toItem: toItem,
+                                            attribute: .bottom,
                                             multiplier: 1,
                                             constant: value)
         self.addConstraint(constraint)
@@ -255,6 +287,17 @@ public extension UIView {
         view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         view.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    }
+
+    /// Pins the view's edges to the edges of the specified superview.
+    /// - Parameter superView: The superview to pin to.
+    func pinToSuperView(_ superView: UIView) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        superView.addSubview(self)
+        self.topAnchor.constraint(equalTo: superView.topAnchor).isActive = true
+        self.bottomAnchor.constraint(equalTo: superView.bottomAnchor).isActive = true
+        self.leadingAnchor.constraint(equalTo: superView.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: superView.trailingAnchor).isActive = true
     }
 }
 
@@ -325,6 +368,7 @@ public extension UIView {
     }
 
     // Returns the safe area insets of the view, or zero if not available.
+    /// Returns the safe area insets of the view. Returns `.zero` for iOS versions below 11.
     var safeAreaInset: UIEdgeInsets {
         if #available(iOS 11.0, *) {
             return self.safeAreaInsets
@@ -334,6 +378,7 @@ public extension UIView {
     }
 
     // Applies a continuous rotation animation to the view.
+    /// Applies a continuous clockwise rotation animation to the view.
     func rotate() {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = NSNumber(value: Double.pi * 2)
@@ -344,6 +389,8 @@ public extension UIView {
     }
 
     // Loads a nib file with the same name as the view and returns the loaded view.
+    /// Loads a nib file with the same name as the view’s class and returns the resulting view.
+    /// - Returns: The loaded `UIView` instance.
     func loadNib() -> UIView {
         let bundle = Bundle(for: type(of: self))
         let nibName = type(of: self).description().components(separatedBy: ".").last!
@@ -352,6 +399,7 @@ public extension UIView {
     }
 
     // Loads and attaches the view from the nib to the current view.
+    /// Loads the view from its corresponding nib and attaches it to the current view, matching its bounds.
     func loadAndAttachView() {
         let view = loadNib()
 
@@ -361,6 +409,10 @@ public extension UIView {
     }
 
     // Rounds the specified corners of the view with the given radius.
+    /// Rounds the specified corners of the view with a given radius.
+    /// - Parameters:
+    ///   - corners: The corners of the view to round.
+    ///   - radius: The radius to apply to the rounded corners.
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
@@ -369,6 +421,13 @@ public extension UIView {
     }
 
     // Applies a drop shadow to the view with the specified parameters.
+    /// Applies a drop shadow to the view using the specified color, opacity, offset, radius, and scale.
+    /// - Parameters:
+    ///   - color: The shadow color. Default is black.
+    ///   - opacity: The opacity of the shadow. Default is 0.5.
+    ///   - offSet: The offset of the shadow. Default is (-1, 1).
+    ///   - radius: The blur radius of the shadow. Default is 5.
+    ///   - scale: Whether to apply screen scale to rasterization. Default is `true`.
     func applyDropShadow(_ color: UIColor = .black, opacity: Float = 0.5, offSet: CGSize = CGSize(width: -1, height: 1), radius: CGFloat = 5, scale: Bool = true) {
         layer.masksToBounds = false
         layer.shadowColor = color.cgColor
@@ -382,6 +441,10 @@ public extension UIView {
     }
 
     // Animates a shake effect on the view with the given duration and impact multiplier.
+    /// Applies a horizontal shake animation to the view.
+    /// - Parameters:
+    ///   - duration: The total duration of the animation. Default is 0.5 seconds.
+    ///   - impactMultiplier: The strength of the shake. Default is 1.
     func animateShake(withDuration duration: TimeInterval = 0.5, impactMultiplier: Int = 1) {
         let shakeAnimation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         shakeAnimation.duration = duration

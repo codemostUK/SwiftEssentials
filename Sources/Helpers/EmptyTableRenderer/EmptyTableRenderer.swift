@@ -14,7 +14,7 @@ public protocol EmptyTableRendererDelegate: NSObjectProtocol {
 }
 
 /// Default implementatuon of EmptyTableRendererDelegate protocol's didRequestNewItem method.
-extension EmptyTableRendererDelegate {
+public extension EmptyTableRendererDelegate {
     func didRequestNewItem() {}
 }
 
@@ -52,7 +52,7 @@ open class EmptyTableRenderer: NSObject {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.reloadData()
-        if let scrollViewDelegate = self.delegate as? UIScrollViewDelegate {
+        if self.delegate is UIScrollViewDelegate {
             tableView.isScrollEnabled = true
         } else {
             tableView.isScrollEnabled = false
@@ -75,7 +75,7 @@ extension EmptyTableRenderer: UITableViewDataSource {
         return .leastNormalMagnitude
     }
 
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: UIView?) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
 }
@@ -128,4 +128,3 @@ extension EmptyTableRenderer: UIScrollViewDelegate {
         }
     }
 }
-

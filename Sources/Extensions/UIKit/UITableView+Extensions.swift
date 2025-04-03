@@ -20,6 +20,15 @@ public extension UITableView {
         }
     }
 
+    /// Adds or removes padding at the bottom of the table view.
+    @IBInspectable var bottomPadding: CGFloat {
+        get {
+            return contentInset.bottom
+        } set {
+            contentInset = UIEdgeInsets(top: contentInset.top, left: 0, bottom: newValue, right: 0)
+        }
+    }
+
     /// Adds or removes safe area padding at the bottom of the table view.
     ///
     /// This property adjusts the `contentInset` based on the safe area insets.
@@ -32,6 +41,34 @@ public extension UITableView {
                 contentInset = UIEdgeInsets(top: contentInset.top, left: 0, bottom: UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0, right: 0)
             } else {
                 contentInset = UIEdgeInsets(top: contentInset.top, left: 0, bottom: 0, right: 0)
+            }
+        }
+    }
+
+    /// Scrolls to the specified cell and briefly fades it to indicate focus.
+    /// - Parameters:
+    ///   - indexPath: The index path of the cell to focus.
+    ///   - animated: Whether the scroll should be animated. Defaults to `true`.
+    func focusCellWithAlpha(at indexPath: IndexPath, animated: Bool = true) {
+        guard self.numberOfSections > indexPath.section,
+              self.numberOfRows(inSection: indexPath.section) > indexPath.row else {
+            print("Geçersiz indexPath")
+            return
+        }
+
+        self.scrollToRow(at: indexPath, at: .middle, animated: animated)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + (animated ? 0.3 : 0)) {
+            if let cell = self.cellForRow(at: indexPath) {
+                UIView.animate(withDuration: 0.3, animations: {
+
+                    cell.contentView.alpha = 0.2
+                }) { _ in
+
+                    UIView.animate(withDuration: 0.3) {
+                        cell.contentView.alpha = 1.0
+                    }
+                }
             }
         }
     }

@@ -144,6 +144,73 @@ public struct SecondsSince1970Date<DateValue: ExpressibleByDate & Codable>: Coda
     }
 }
 
+@propertyWrapper
+public struct SecondsSince1970DateOptional<DateValue: ExpressibleByDate & Codable>: Codable {
+    /// A property wrapper that decodes an optional `Date` from a timestamp representing seconds since 1970.
+    /// It attempts to handle different timestamp formats and adjusts precision accordingly.
+    public var wrappedValue: DateValue?
+
+    public init(wrappedValue: DateValue?) {
+        self.wrappedValue = wrappedValue
+    }
+
+    public init(from decoder: Decoder) throws {
+        guard let container = try? decoder.singleValueContainer() else {
+            self.wrappedValue = nil
+            return
+        }
+
+        if let dictionary = try? container.decode(Dictionary<String, Int>.self),
+           var wrappedIntValue = dictionary[CodingKeys.wrappedValue.rawValue] {
+
+            let intString = String(wrappedIntValue)
+
+            switch intString.count {
+                case 16:
+                    wrappedIntValue = wrappedIntValue / 1_000_000
+                case 13:
+                    wrappedIntValue = wrappedIntValue / 1_000
+                case 10:
+                    break
+                default:
+                    self.wrappedValue = nil
+                    return
+            }
+            self.wrappedValue = Date(timeIntervalSince1970: TimeInterval(wrappedIntValue)) as? DateValue
+        } else if var wrappedIntValue = try? container.decode(Int.self) {
+            let intString = String(wrappedIntValue)
+
+            switch intString.count {
+                case 16:
+                    wrappedIntValue = wrappedIntValue / 1_000_000
+                case 13:
+                    wrappedIntValue = wrappedIntValue / 1_000
+                case 10:
+                    break
+                default:
+                    self.wrappedValue = nil
+                    return
+            }
+            self.wrappedValue = Date(timeIntervalSince1970: TimeInterval(wrappedIntValue)) as? DateValue
+        } else {
+            self.wrappedValue = nil
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        if let dateValue = self.wrappedValue as? Date {
+            try container.encode(Int(dateValue.timeIntervalSince1970), forKey: .wrappedValue)
+        } else {
+            try container.encodeNil(forKey: .wrappedValue)
+        }
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case wrappedValue
+    }
+}
+
 /// A property wrapper that decodes and encodes a `Date` formatted as `yyyy-MM-dd`.
 @propertyWrapper
 public struct FormattedDate_yyyy_MM_dd<DateValue: ExpressibleByDate & Codable>: Codable {
@@ -203,5 +270,61 @@ public struct FormattedDate_ISO8601<DateValue: ExpressibleByDate & Codable>: Cod
         formatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         try container.encode(formatter.string(from: dateValue))
+    }
+}
+
+@propertyWrapper
+public struct SecondsSince1970DateDouble<DateValue: ExpressibleByDate & Codable>: Codable {
+    /// A property wrapper that decodes a `Date` from a timestamp in double format representing seconds since 1970.
+    /// It handles various precisions such as milliseconds and microseconds automatically.
+    public var wrappedValue: DateValue
+
+    public init(wrappedValue: DateValue) {
+        self.wrappedValue = wrappedValue
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        if let dictionary = try? container.decode([String: Double].self),
+           var wrappedDoubleValue = dictionary[CodingKeys.wrappedValue.rawValue] {
+
+            // Adjust for milliseconds or microseconds if necessary
+            let doubleString = String(wrappedDoubleValue)
+            switch doubleString.count {
+                case 16:
+                    wrappedDoubleValue /= 1_000_000
+                case 13:
+                    wrappedDoubleValue /= 1_000
+                default:
+                    break
+            }
+            wrappedValue = Date(timeIntervalSince1970: wrappedDoubleValue) as! DateValue
+        } else if var wrappedDoubleValue: Double = try? container.decode(Double.self) {
+
+            // Adjust for milliseconds or microseconds if necessary
+            let doubleString = String(wrappedDoubleValue.toInt)
+            switch doubleString.count {
+                case 16:
+                    wrappedDoubleValue /= 1_000_000
+                case 13:
+                    wrappedDoubleValue /= 1_000
+                default:
+                    break
+            }
+            wrappedValue = Date(timeIntervalSince1970: TimeInterval(wrappedDoubleValue)) as! DateValue
+        } else {
+            wrappedValue = Date() as! DateValue // Fallback to current date
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        let dateValue = self.wrappedValue as! Date
+        try container.encode(dateValue.timeIntervalSince1970, forKey: .wrappedValue)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case wrappedValue
     }
 }

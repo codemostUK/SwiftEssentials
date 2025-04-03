@@ -32,6 +32,14 @@ public extension URL {
         return self
     }
 
+    /// Adds the "https" scheme to the URL if it doesn't already have a scheme.
+    /// - Returns: A URL with the "https" scheme if it was missing; otherwise, returns the original URL.
+    func addingSchemeIfNeeded() -> URL? {
+        if let scheme = self.scheme, !scheme.isEmpty { return self }
+        let urlStringWithScheme = "https://\(self.absoluteString)"
+        return URL(string: urlStringWithScheme)
+    }
+
     /// Checks if the file size at the URL exceeds a 10 MB limit.
     /// - Returns: `true` if the file size exceeds 10 MB, `false` otherwise.
     var isFileSizeExeedsLimit: Bool {

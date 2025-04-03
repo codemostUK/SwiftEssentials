@@ -12,4 +12,4 @@ import Foundation
 #error("SwiftEssentials doesn't support Swift versions below 5.3")
 #endif
 
-let version = "1.0.4"
+let version = "1.0.5"

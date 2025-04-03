@@ -9,7 +9,7 @@ import Foundation
 
 public extension Double {
 
-    /// Returns the double value formatted as a string with up to 2 decimal places.
+    /// Returns the double value formatted as a string with up to 2 decimal places, removing trailing zeros.
     var formattedString: String {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
@@ -18,7 +18,25 @@ public extension Double {
         return formatter.string(from: NSNumber(floatLiteral: self))!
     }
 
-    /// Returns the double value formatted as a currency string in the Turkish locale ("tr_TR").
+    /// Returns the double value formatted as a string with exactly 2 decimal places.
+    var formattedStringWith2DecimalPlaces: String {
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.decimalSeparator = "."
+        return formatter.string(from: NSNumber(floatLiteral: self))!
+    }
+
+    /// Returns the double value formatted as a string with up to 2 decimal places. Functionally same as `formattedString`.
+    var formattedDecimalString: String {
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        formatter.decimalSeparator = "."
+        return formatter.string(from: NSNumber(floatLiteral: self))!
+    }
+
+    /// Returns the double value formatted as a currency string using the Turkish ("tr_TR") locale.
     var formattedStringCurrency: String {
         let formatter = NumberFormatter()
         formatter.locale = Locale(identifier: "tr_TR")
@@ -27,7 +45,7 @@ public extension Double {
         return formatter.string(from: NSNumber(floatLiteral: self))!
     }
 
-    /// Converts the double to a `Decimal` value.
+    /// Converts the double to a `Decimal` representation using `NSNumber`.
     var decimalValue: Decimal {
         return NSNumber(floatLiteral: self).decimalValue
     }
@@ -43,12 +61,12 @@ public extension Double {
         return originalDecimal
     }
 
-    /// Converts the double to a string.
+    /// Converts the double value to a string using string interpolation.
     var toString: String {
         return String("\(self)")
     }
 
-    /// Returns the double as a string, but shows a dash ("-") if the value is zero or negative.
+    /// Returns the double as a string, or "-" if the value is zero or negative.
     var toStringWithDashForZero: String {
         if self > 0 {
             return "\(self)"
@@ -57,13 +75,8 @@ public extension Double {
         }
     }
 
-    /// Converts the double to an integer.
+    /// Converts the double to an integer by truncating the fractional part.
     var toInt: Int {
         return Int(self)
-    }
-
-    /// Returns the double value formatted as a string with exactly 2 decimal places.
-    var formattedStringWith2DecimalPlaces: String {
-        return String(format: "%.2f", self)
     }
 }

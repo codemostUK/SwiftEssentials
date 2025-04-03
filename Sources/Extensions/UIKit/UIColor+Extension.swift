@@ -53,6 +53,12 @@ public extension UIColor {
         return String(format: "#%06x", rgb)
     }
 
+    /// Converts the color to a hex string without the "#" prefix.
+    /// - Returns: A string in the format "RRGGBB" representing the color.
+    func toHexStringWithoutHash() -> String {
+        return toHexString().substring(fromIndex: 1)
+    }
+
     /// Adjusts the brightness of the color by a given factor.
     /// - Parameter factor: A multiplier for brightness; values > 1.0 increase brightness, values < 1.0 decrease it.
     /// - Returns: A new `UIColor` instance with adjusted brightness, or the original color if components cannot be extracted.
@@ -90,5 +96,36 @@ public extension UIColor {
     /// Returns a color that is 40% lighter.
     func lighterMore() -> UIColor {
         return adjustBrightness(by: 1.4)
+    }
+
+    /// The red component of the color, extracted from its CGColor.
+    var redComponent: CGFloat {
+        return cgColor.components?[0] ?? 0
+    }
+
+    /// The green component of the color, extracted from its CGColor.
+    var greenComponent: CGFloat {
+        return cgColor.components?[1] ?? 0
+    }
+
+    /// The blue component of the color, extracted from its CGColor.
+    var blueComponent: CGFloat {
+        return cgColor.components?.count ?? 1 > 2 ? cgColor.components?[2] ?? 0 : 0
+    }
+
+    /// Initializes a `UIColor` from an optional hex string. Returns `nil` if the string is invalid.
+    /// - Parameter optionalHex: The hex string representing the color (e.g., "#FF5733" or "FF5733").
+    convenience init?(optionalHex: String) {
+        var hexSanitized = optionalHex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+
+        var rgb: UInt64 = 0
+        guard Scanner(string: hexSanitized).scanHexInt64(&rgb) else { return nil }
+
+        let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgb & 0x0000FF) / 255.0
+
+        self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }

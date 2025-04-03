@@ -35,6 +35,17 @@ public extension UIViewController {
         }
     }
 
+    /// Indicates whether the view controller is currently the top-most in its navigation stack.
+    /// - Returns: `true` if this view controller is the top view controller; otherwise, `false`.
+    var amIOnTopInNavigationStack: Bool {
+        guard
+            let navigationController,
+            let topViewController = navigationController.topViewController
+        else { return false }
+
+        return topViewController == self
+    }
+
     /// Returns the top-most view controller presented by the current view controller.
     ///
     /// - Returns: The top-most view controller or `nil` if none is found.
@@ -115,6 +126,8 @@ public extension UIViewController {
         return UIApplication.rootWindow?.rootViewController?.topMostViewController()
     }
 
+    /// Recursively finds the top-most view controller by inspecting presented view controllers and subviews.
+    /// - Returns: The top-most `UIViewController` in the hierarchy.
     private func topMostViewController() -> UIViewController {
         if let presentedViewController = self.presentedViewController {
             return presentedViewController.topMostViewController()

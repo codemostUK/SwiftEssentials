@@ -22,10 +22,10 @@ public extension UITabBar {
 
             // Set the badge background color
             tabBarItemAppearance.normal.badgeBackgroundColor = .red
-
+            
             // Set the badge font and size
             tabBarItemAppearance.normal.badgeTextAttributes = [
-                .font: UIFont.systemFont(ofSize: 13)
+                .font: UIFont.monospacedSystemFont(ofSize: 13, weight: .bold)
             ]
 
             tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SwiftEssentials'
   s.module_name      = 'SwiftEssentials'
-  s.version          = '1.0.3'
+  s.version          = '1.0.5'
   s.license          = { :type => 'Copyright', :text => <<-LICENSE
 									Copyright 2024
 									Codemost Limited. 
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.source_files     = 'Sources/Classes/**/*.{swift}', 'Sources/Extensions/**/*.{swift}', 'Sources/Helpers/**/*.{swift}', 'Sources/PropertyWrapper/**/*.{swift}', 'Sources/Protocols/**/*.{swift}', 'Sources/Views/**/*.{swift}', 'Sources/SwiftEssentials.swift'
   s.documentation_url = 'https://github.com/codemostUK/SwiftEssentials/blob/main/README.md'
   s.requires_arc    = true
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '15.0'
   s.swift_version   = '5.5'
   s.frameworks = 'UIKit', 'Foundation'
 end

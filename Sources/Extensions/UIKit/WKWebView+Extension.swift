@@ -7,8 +7,9 @@
 
 import WebKit
 
-extension WKWebView {
-    // Will disable zoom by adding a meta tag to the page
+public extension WKWebView {
+    /// Disables zooming in the web view by injecting a viewport meta tag with fixed scale settings.
+    /// Adds the script at the end of document loading and clears the scroll view background.
     func disableZoom() {
         let script = """
         var meta = document.createElement('meta');
