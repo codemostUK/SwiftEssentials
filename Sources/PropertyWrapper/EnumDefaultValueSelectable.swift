@@ -59,3 +59,8 @@ public struct True: DefaultCodableInterface {
 public struct EmptyString: DefaultCodableInterface {
     public static var defaultValue: String { "" }
 }
+
+/// A type that provides a random `Int64` value within the range 100_000_000_000_000_0000...Int64.max as the default value.
+public struct RandInt64: DefaultCodableInterface {
+    public static var defaultValue: Int64 { Int64.random(in: 100_000_000_000_000_0000...Int64.max) }
+}
