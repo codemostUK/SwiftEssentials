@@ -1,12 +1,10 @@
 # SwiftEssentials
 
+**SwiftEssentials** is a comprehensive library offering a suite of utilities, components, and extensions to streamline and enhance iOS development. Designed to provide reusable and customizable solutions, SwiftEssentials helps accelerate development and improve code quality with essential tools for various tasks and functionalities.
+
 ![Build Status](https://img.shields.io/github/workflow/status/codemostUK/SwiftEssentials/CI) 
 ![Swift Version](https://img.shields.io/badge/swift-5.5%2B-orange.svg)
 ![License](https://img.shields.io/github/license/codemostUK/SwiftEssentials)
-
-## Overview
-
-**SwiftEssentials** is a comprehensive library offering a suite of utilities, components, and extensions to streamline and enhance iOS development. Designed to provide reusable and customizable solutions, SwiftEssentials helps accelerate development and improve code quality with essential tools for various tasks and functionalities.
 
 ## Features
 
