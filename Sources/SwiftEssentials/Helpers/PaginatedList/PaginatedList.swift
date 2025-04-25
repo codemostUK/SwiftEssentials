@@ -97,5 +97,5 @@ public protocol Paginatable {
 
 public extension PaginatedList {
     /// The default page size used by paginated lists.
-    static var defaultPageSize: Int = 20
+    static let defaultPageSize: Int = 20
 }

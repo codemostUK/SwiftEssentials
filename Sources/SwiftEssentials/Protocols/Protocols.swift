@@ -163,7 +163,8 @@ public protocol VariableSize where Self: UIResponder {
 // MARK: - Protocol Extensions
 
 public extension NotificationSubscriber {
-    func addSubscribers(forNames names: [NSNotification.Name]?, using block: @escaping (Notification) -> Void) {
+    func addSubscribers(forNames names: [NSNotification.Name]?,
+                        using block: @Sendable @escaping (Notification) -> Void) {
         if (subscribers == nil) { subscribers = [] }
         names?.forEach {
             subscribers?.append(NotificationCenter.default.addObserver(forName: $0, object: nil, queue: nil, using: block))

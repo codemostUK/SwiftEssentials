@@ -101,6 +101,7 @@ open class TableDataRenderer: NSObject {
     weak public var delegate: NSObjectProtocol?
     weak public var tableView: UITableView?
 
+    @MainActor
     public init?(tableData: TableData, tableView: UITableView, delegate: NSObjectProtocol? = nil) {
         guard tableData.isConforming(delegate) else { return nil }
         self.tableData = tableData
@@ -116,7 +117,8 @@ open class TableDataRenderer: NSObject {
         tableView.isScrollEnabled = true
         tableView.reloadData()
     }
-    
+
+    @MainActor
     public func updateData(_ tableData: TableData) {
         self.tableData = tableData
         let registerItems = tableData.itemsToRegister()

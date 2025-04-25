@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F2A7CB12C91B15B00B3BF03 /* SENetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CAD2C91B15B00B3BF03 /* SENetworkMonitor.swift */; };
 		2F2A7CB22C91B15B00B3BF03 /* SEImageCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CAF2C91B15B00B3BF03 /* SEImageCompressor.swift */; };
 		2F2A7CB92C91B2C000B3BF03 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CB32C91B2C000B3BF03 /* KeyedDecodingContainer.swift */; };
 		2F2A7CBA2C91B2C000B3BF03 /* DefaultCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2A7CB52C91B2C000B3BF03 /* DefaultCodable.swift */; };
@@ -40,7 +39,6 @@
 		2FB411822C908A450086760B /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411762C908A450086760B /* DispatchQueue+Extension.swift */; };
 		2FB411832C908A450086760B /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411772C908A450086760B /* UserDefaults+Extension.swift */; };
 		2FB4118D2C908F640086760B /* EmptyTableRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411842C908F640086760B /* EmptyTableRenderer.swift */; };
-		2FB4118E2C908F640086760B /* ExpandableByKeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411862C908F640086760B /* ExpandableByKeyboardController.swift */; };
 		2FB4118F2C908F640086760B /* FormValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411882C908F640086760B /* FormValidator.swift */; };
 		2FB411902C908F640086760B /* TableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4118A2C908F640086760B /* TableData.swift */; };
 		2FB411932C9093480086760B /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411912C9093480086760B /* UITableView+Extensions.swift */; };
@@ -73,6 +71,7 @@
 		2FB411CA2C90A7600086760B /* SEUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411C92C90A7600086760B /* SEUILabel.swift */; };
 		2FB411CC2C90A8790086760B /* SELoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411CB2C90A8790086760B /* SELoadingButton.swift */; };
 		2FB411CE2C90AD180086760B /* SECircularCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB411CD2C90AD180086760B /* SECircularCountDownView.swift */; };
+		2FDF85462DBBDC9900A0A2CC /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDF85452DBBDC9900A0A2CC /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,7 +87,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F2A7CAD2C91B15B00B3BF03 /* SENetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SENetworkMonitor.swift; sourceTree = "<group>"; };
 		2F2A7CAF2C91B15B00B3BF03 /* SEImageCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEImageCompressor.swift; sourceTree = "<group>"; };
 		2F2A7CB32C91B2C000B3BF03 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		2F2A7CB52C91B2C000B3BF03 /* DefaultCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCodable.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 		2FB411762C908A450086760B /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		2FB411772C908A450086760B /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		2FB411842C908F640086760B /* EmptyTableRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTableRenderer.swift; sourceTree = "<group>"; };
-		2FB411862C908F640086760B /* ExpandableByKeyboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableByKeyboardController.swift; sourceTree = "<group>"; };
 		2FB411882C908F640086760B /* FormValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormValidator.swift; sourceTree = "<group>"; };
 		2FB4118A2C908F640086760B /* TableData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableData.swift; sourceTree = "<group>"; };
 		2FB411912C9093480086760B /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -155,6 +152,7 @@
 		2FB411C92C90A7600086760B /* SEUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEUILabel.swift; sourceTree = "<group>"; };
 		2FB411CB2C90A8790086760B /* SELoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SELoadingButton.swift; sourceTree = "<group>"; };
 		2FB411CD2C90AD180086760B /* SECircularCountDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SECircularCountDownView.swift; sourceTree = "<group>"; };
+		2FDF85452DBBDC9900A0A2CC /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +169,7 @@
 		2F2A7CAE2C91B15B00B3BF03 /* NetworkMonitor */ = {
 			isa = PBXGroup;
 			children = (
-				2F2A7CAD2C91B15B00B3BF03 /* SENetworkMonitor.swift */,
+				2FDF85452DBBDC9900A0A2CC /* NetworkMonitor.swift */,
 			);
 			path = NetworkMonitor;
 			sourceTree = "<group>";
@@ -303,14 +301,6 @@
 			path = EmptyTableRenderer;
 			sourceTree = "<group>";
 		};
-		2FB411872C908F640086760B /* ExpandableByKeyboard */ = {
-			isa = PBXGroup;
-			children = (
-				2FB411862C908F640086760B /* ExpandableByKeyboardController.swift */,
-			);
-			path = ExpandableByKeyboard;
-			sourceTree = "<group>";
-		};
 		2FB411892C908F640086760B /* FormValidator */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,7 +322,6 @@
 			children = (
 				2F48DEA12D944E6F0020F245 /* DeviceInfo */,
 				2FB411852C908F640086760B /* EmptyTableRenderer */,
-				2FB411872C908F640086760B /* ExpandableByKeyboard */,
 				2FB411892C908F640086760B /* FormValidator */,
 				2F2A7CB02C91B15B00B3BF03 /* ImageCompressor */,
 				2F2A7CAE2C91B15B00B3BF03 /* NetworkMonitor */,
@@ -465,6 +454,7 @@
 				2FB411B02C9099820086760B /* UITextField+Extension.swift in Sources */,
 				2FB411BF2C90A16D0086760B /* UINavigationController+Extension.swift in Sources */,
 				2FB411BA2C9099820086760B /* UINavigationItem+Extension.swift in Sources */,
+				2FDF85462DBBDC9900A0A2CC /* NetworkMonitor.swift in Sources */,
 				2FB411B12C9099820086760B /* UIButton+Extension.swift in Sources */,
 				2F2A7CC92C91B48700B3BF03 /* AttachableNavigationBar.swift in Sources */,
 				2FB411952C9093C10086760B /* UIControl+Extension.swift in Sources */,
@@ -491,7 +481,6 @@
 				2FB411AD2C9099820086760B /* UIDevice+Extension.swift in Sources */,
 				2F7206E12C987D2F006AA871 /* SEAnimatedImageView.swift in Sources */,
 				2FB411932C9093480086760B /* UITableView+Extensions.swift in Sources */,
-				2FB4118E2C908F640086760B /* ExpandableByKeyboardController.swift in Sources */,
 				2FB411B22C9099820086760B /* UIStackView+Extension.swift in Sources */,
 				2F2A7CCE2C91B48700B3BF03 /* PasteDisabledTextField.swift in Sources */,
 				2FB411AF2C9099820086760B /* UIImage+Extension.swift in Sources */,
@@ -508,7 +497,6 @@
 				2FB411BD2C9099820086760B /* UITabBar+Extension.swift in Sources */,
 				2FB411C82C90A6E00086760B /* SEUIView.swift in Sources */,
 				2FB411802C908A450086760B /* Dictionary+Extension.swift in Sources */,
-				2F2A7CB12C91B15B00B3BF03 /* SENetworkMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

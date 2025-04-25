@@ -10,6 +10,7 @@ import UIKit
 
 /// Opens the specified URL link in the browser.
 /// - Parameter link: The string representing the URL to open.
+@MainActor
 public func goto(_ link: String?) {
     if let link = link, let linkTogo = URL(string: link) {
         UIApplication.shared.open(linkTogo.sanitise)
@@ -18,6 +19,7 @@ public func goto(_ link: String?) {
 
 /// Opens the specified URL in the browser.
 /// - Parameter url: The `URL` to open.
+@MainActor
 public func goto(_ url: URL) {
     UIApplication.shared.open(url.sanitise)
 }
@@ -33,6 +35,7 @@ public func goto(_ link: String?, _ afterSeconds: Double) {
 }
 
 /// Opens the app's settings in the system preferences.
+@MainActor
 public func gotoSettings() {
     if let url = URL(string: UIApplication.openSettingsURLString) {
         UIApplication.shared.open(url)

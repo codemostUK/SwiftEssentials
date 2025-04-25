@@ -34,6 +34,7 @@ public extension Array where Element: FloatingPoint {
 public extension Array where Element: UILabel {
 
     /// Clears the text of all labels in the array.
+    @MainActor
     func clearText() {
         self.forEach { label in
             label.text = nil
@@ -42,6 +43,7 @@ public extension Array where Element: UILabel {
 
     /// Sets the text of all labels in the array to the specified value.
     /// - Parameter newValue: The text to set for all labels.
+    @MainActor
     func setText(_ newValue: String?) {
         self.forEach { label in
             label.text = newValue
@@ -55,6 +57,7 @@ public extension Array where Element: NSLayoutConstraint {
 
     /// Updates the constant value of all constraints in the array.
     /// - Parameter constant: The new constant value to set.
+    @MainActor
     func updateConstant(constant: CGFloat) {
         self.forEach { constraint in
             constraint.constant = constant
@@ -68,6 +71,7 @@ public extension Array where Element: UIView {
 
     /// Toggles the visibility of all views in the array.
     /// - Parameter isVisible: A Boolean value that determines whether the views should be visible (`true`) or hidden (`false`).
+    @MainActor
     func toggleVisibility(isVisible: Bool) {
         self.forEach { view in
             view.visible = isVisible
@@ -76,6 +80,7 @@ public extension Array where Element: UIView {
 
     /// Sets the alpha value for all views in the array.
     /// - Parameter newValue: The new alpha value to set.
+    @MainActor
     func setAlpha(_ newValue: CGFloat) {
         self.forEach { view in
             view.alpha = newValue
@@ -83,6 +88,7 @@ public extension Array where Element: UIView {
     }
 
     /// Removes all views in the array from their superview.
+    @MainActor
     func removeFromSuperView() {
         self.forEach { view in
             view.removeFromSuperview()

@@ -197,13 +197,13 @@ if let compressedImageData = SEImageCompressor.compress(image: myImage, maxSizeI
 
 ---
 
-### 🔹 SENetworkMonitor
+### 🔹 NetworkMonitor
 
 ```swift
 import SwiftEssentials
 
-SENetworkMonitor.shared.startMonitoring()
-print(SENetworkMonitor.shared.isConnected)
+NetworkMonitor.shared.startMonitoring()
+print(NetworkMonitor.shared.isConnected)
 ```
 
 ---

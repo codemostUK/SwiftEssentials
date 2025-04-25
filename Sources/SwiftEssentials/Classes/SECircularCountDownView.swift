@@ -10,9 +10,10 @@ import UIKit
 /// Protocol for handling countdown completion events.
 public protocol SECircularCountDownViewDelegate: AnyObject {
     /// Called when the countdown finishes.
-    func timeOver(countDownView: SECircularCountDownView)
+    func timeOver(countDownView: SECircularCountDownView?)
 }
 
+@MainActor
 open class SECircularCountDownView: UIView {
 
     private lazy var countDownLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -20,7 +21,7 @@ open class SECircularCountDownView: UIView {
     private let progressLayer = CAShapeLayer()
     private let endPoint = CGFloat(3 * Double.pi / 2)
     private let startPoint = CGFloat(-Double.pi / 2)
-    private weak var timer: Timer?
+    private var countdownTask: Task<Void, Never>?
 
     /// The color of the progress bar.
     @IBInspectable public var progressColor: UIColor = .white {
@@ -123,34 +124,37 @@ open class SECircularCountDownView: UIView {
     }
 
     /// Updates the countdown label with the remaining time.
+    @MainActor
     open func updateLabel(remainingTime: Int) {
         self.countDownLabel.text = "\(remainingTime)" + countDownLabelSuffix
     }
 
     // MARK: - Public Methods
 
-    /// Starts the countdown and animates the progress layer.
+    /// Starts the countdown and updates the UI every second.
+    /// Cancels any existing countdown task before starting a new one.
+    /// Once the countdown reaches zero, notifies the delegate.
     open func start() {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.fromValue = 0
-        animation.toValue = 1.0
-        animation.duration = CFTimeInterval(self.duration)
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-        progressLayer.add(animation, forKey: "progressAnimation")
+        // Cancel any ongoing countdown
+        countdownTask?.cancel()
 
-        timer?.invalidate()
-        var remainingTime = duration
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (timer) in
-            guard let self = self else { return }
-            self.updateLabel(remainingTime: remainingTime)
-            remainingTime -= 1
+        let totalDuration = duration
+        var remainingTime = totalDuration
 
-            if remainingTime < 0 {
-                timer.invalidate()
-                self.delegate?.timeOver(countDownView: self)
+        // Launch a structured concurrency task to handle the countdown
+        countdownTask = Task { @MainActor in
+            for _ in 0..<totalDuration {
+                updateLabel(remainingTime: remainingTime)
+
+                // Sleep for 1 second (compatible with iOS 13+)
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+
+                remainingTime -= 1
             }
+
+            // Final update and notify delegate
+            updateLabel(remainingTime: 0)
+            delegate?.timeOver(countDownView: self)
         }
-        timer?.fire()
     }
 }

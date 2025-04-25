@@ -14,7 +14,9 @@ public extension DispatchQueue {
     ///   - delay: The delay (in seconds) before executing the completion task on the main thread. Default is `0.0`.
     ///   - background: The task to execute in the background.
     ///   - completion: The task to execute on the main thread after the background task. Optional.
-    static func background(delay: Double = 0.0, background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+    static func background(delay: Double = 0.0,
+                           background: (@Sendable () -> Void)? = nil,
+                           completion: (@Sendable () -> Void)? = nil) {
         DispatchQueue.global(qos: .background).async {
             background?()
             if let completion = completion {

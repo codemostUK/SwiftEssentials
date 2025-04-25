@@ -22,6 +22,7 @@ public extension EmptyTableRendererDelegate {
 public protocol EmptyTableRendererCellDelegate: UITableViewCell, FixedHeight {}
 
 /// An open class for rendering a table view with an empty state using a specific cell type.
+@MainActor
 open class EmptyTableRenderer: NSObject {
 
     public var emptyCellClass: EmptyTableRendererCellDelegate.Type

@@ -9,13 +9,14 @@
 #if os(iOS)
 import UIKit
 
+@MainActor
 open class DeviceInfo {
 
     static fileprivate func getVersionCode() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
 
-        let versionCode: String = String(validatingUTF8: NSString(bytes: &systemInfo.machine, length: Int(_SYS_NAMELEN), encoding: String.Encoding.ascii.rawValue)!.utf8String!)!
+        let versionCode: String = String(validatingCString: NSString(bytes: &systemInfo.machine, length: Int(_SYS_NAMELEN), encoding: String.Encoding.ascii.rawValue)!.utf8String!)!
 
         return versionCode
     }
