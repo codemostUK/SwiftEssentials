@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
                        DESC
 
   s.source           = { :git => 'https://github.com/codemostUK/SwiftEssentials.git',
+	  							 :branch => 'legacy',
  								 :tag => s.version.to_s }
   s.source_files     = 'Sources/Classes/**/*.{swift}', 'Sources/Extensions/**/*.{swift}', 'Sources/Helpers/**/*.{swift}', 'Sources/PropertyWrapper/**/*.{swift}', 'Sources/Protocols/**/*.{swift}', 'Sources/Views/**/*.{swift}', 'Sources/SwiftEssentials.swift'
   s.documentation_url = 'https://github.com/codemostUK/SwiftEssentials/blob/main/README.md'

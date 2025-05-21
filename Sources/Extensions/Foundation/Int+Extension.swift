@@ -41,29 +41,41 @@ public extension Int {
     var abbreviatedString: String {
         let num = abs(Double(self))
         let sign = (self < 0) ? "-" : ""
+        var formatted = ""
 
         switch num {
-        case 1_000_000_000...:
-            var formatted = num / 1_000_000_000
-            formatted = formatted.reduceScale(to: 1)
-            return "\(sign)\(formatted)Mr"
+            case 1_000_000_000_000...:
+                let value = (num / 1_000_000_000_000).reduceScale(to: 1)
+                formatted = value.truncatingRemainder(dividingBy: 1) == 0
+                ? "\(Int(value))Tr"
+                : "\(String(format: "%.1f", value))Tr"
 
-        case 1_000_000...:
-            var formatted = num / 1_000_000
-            formatted = formatted.reduceScale(to: 1)
-            return "\(sign)\(formatted)Mn"
+            case 1_000_000_000...:
+                let value = (num / 1_000_000_000).reduceScale(to: 1)
+                formatted = value.truncatingRemainder(dividingBy: 1) == 0
+                ? "\(Int(value))Mr"
+                : "\(String(format: "%.1f", value))Mr"
 
-        case 1_000...:
-            var formatted = num / 1_000
-            formatted = formatted.reduceScale(to: 1)
-            return "\(sign)\(formatted)B"
+            case 1_000_000...:
+                let value = (num / 1_000_000).reduceScale(to: 1)
+                formatted = value.truncatingRemainder(dividingBy: 1) == 0
+                ? "\(Int(value))Mn"
+                : "\(String(format: "%.1f", value))Mn"
 
-        case 0...:
-            return "\(self)"
+            case 1_000...:
+                let value = (num / 1_000).reduceScale(to: 1)
+                formatted = value.truncatingRemainder(dividingBy: 1) == 0
+                ? "\(Int(value))B"
+                : "\(String(format: "%.1f", value))B"
 
-        default:
-            return "\(sign)\(self)"
+            case 0...:
+                formatted = "\(self)"
+
+            default:
+                formatted = "\(sign)\(self)"
         }
+
+        return "\(sign)\(formatted)"
     }
 
     /// Converts the integer from degrees to radians.

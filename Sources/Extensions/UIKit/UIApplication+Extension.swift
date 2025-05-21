@@ -173,13 +173,13 @@ public extension UIApplication {
     ///   - attachmentText: Optional text to attach.
     ///   - presentingViewController: The view controller to present the alert.
     static func sendGoogleMail(to: String, subject: String, body: String, attachmentText: String?, presentingViewController: UIViewController) {
-        if attachmentText != nil {
-            let alert = UIAlertController(title: "Ek dosya desteklenmiyor", message: "Gmail uygulaması üzerinden doğrudan metin eki gönderilemez.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Tamam", style: .default))
-            presentingViewController.present(alert, animated: true)
-            return
+
+        var joinedBody = body
+        if let attachmentText {
+            joinedBody = joinedBody + "\n" + attachmentText
         }
-        let customURL = "googlegmail:///co?to=\(to)&subject=\(subject)&body=\(body)"
+
+        let customURL = "googlegmail:///co?to=\(to)&subject=\(subject)&body=\(joinedBody)"
         guard let encodedString = customURL.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
               let gmailURL = URL(string: encodedString) else { return }
         
