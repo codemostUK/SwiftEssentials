@@ -69,10 +69,10 @@ public extension Int {
                 : "\(String(format: "%.1f", value))B"
 
             case 0...:
-                formatted = "\(num)"
+                formatted = "\(Int(num))"
 
             default:
-                formatted = "\(sign)\(num)"
+                formatted = "\(Int(num))"
         }
 
         return "\(sign)\(formatted)"
