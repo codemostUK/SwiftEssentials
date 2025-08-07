@@ -452,12 +452,16 @@ public extension String {
 
      ### Example Usage:
      ```swift
-     let text = "Hello world. Hello again, world."
+     let imageAttachment = NSTextAttachment()
+     imageAttachment.image = UIImage(named: "world") // 🌎 An image that will replace the {worldImage} placeholder in the text
+
+     let text = "Hello world. Hello again, world. {worldImage}"
 
      let rangesAndAttributes: [(word: String, rangeIndex: Int?, attributes: [NSAttributedString.Key: Any])] = [
      ("Hello", nil, [.foregroundColor: UIColor.red]),   // All "Hello" in red
      ("world", 1, [.foregroundColor: UIColor.blue]),   // Second "world" in blue
-     ("again", nil, [.font: UIFont.boldSystemFont(ofSize: 15)]) // All "again" in bold
+     ("again", nil, [.font: UIFont.boldSystemFont(ofSize: 15)]), // All "again" in bold
+     ("{worldImage}", nil, [.attachment: imageAttachment]) // 🌎 Image replaces the {worldImage} placeholder in the text
      ]
 
      let defaultAttributes: [NSAttributedString.Key: Any] = [
@@ -503,13 +507,21 @@ public extension String {
                 // Apply attributes to the specific occurrence if the index is valid
                 if rangeIndex < ranges.count, let range = ranges[safe: rangeIndex] {
                     let nsRange = NSRange(range, in: self)
-                    attributedString.addAttributes(attributes, range: nsRange)
+                    if let attachment = attributes[.attachment] as? NSTextAttachment {
+                        attributedString.replaceCharacters(in: nsRange, with: NSAttributedString(attachment: attachment))
+                    } else {
+                        attributedString.addAttributes(attributes, range: nsRange)
+                    }
                 }
             } else {
                 // Apply attributes to all occurrences of the word
-                for range in ranges {
+                for range in ranges.reversed() {
                     let nsRange = NSRange(range, in: self)
-                    attributedString.addAttributes(attributes, range: nsRange)
+                    if let attachment = attributes[.attachment] as? NSTextAttachment {
+                        attributedString.replaceCharacters(in: nsRange, with: NSAttributedString(attachment: attachment))
+                    } else {
+                        attributedString.addAttributes(attributes, range: nsRange)
+                    }
                 }
             }
         }
