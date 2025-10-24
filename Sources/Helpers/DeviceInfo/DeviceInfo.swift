@@ -22,7 +22,7 @@ open class DeviceInfo {
 
     static fileprivate func getVersion(code: String) -> Version {
         switch code {
-            /*** iPhone ***/
+                /*** iPhone ***/
             case "iPhone1,1":                                return .iPhone2G
             case "iPhone1,2":                                return .iPhone3G
             case "iPhone2,1":                                return .iPhone3GS
@@ -69,8 +69,13 @@ open class DeviceInfo {
             case "iPhone17,4":                               return .iPhone16Plus
             case "iPhone17,1":                               return .iPhone16Pro
             case "iPhone17,2":                               return .iPhone16Pro_Max
+            case "iPhone17,5":                               return .iPhone16e
+            case "iPhone18,1":                               return .iPhone17Pro
+            case "iPhone18,2":                               return .iPhone17Pro_Max
+            case "iPhone18,3":                               return .iPhone17
+            case "iPhone18,4":                               return .iPhoneAir
 
-            /*** iPad ***/
+                /*** iPad ***/
             case "iPad1,1", "iPad1,2":                       return .iPad1
             case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4": return .iPad2
             case "iPad3,1", "iPad3,2", "iPad3,3":            return .iPad3
@@ -94,8 +99,10 @@ open class DeviceInfo {
             case "iPad14,1", "iPad14,2":                     return .iPadMini6
             case "iPad14,8", "iPad14,9":                     return .iPadAirM2_11Inch
             case "iPad14,10", "iPad14,11":                   return .iPadAirM2_13Inch
+            case "iPad15,3", "iPad15,4":                     return .iPadAirM3_11Inch
+            case "iPad15,5", "iPad15,6":                     return .iPadAirM3_13Inch
 
-            /*** iPadPro ***/
+                /*** iPadPro ***/
             case "iPad6,3", "iPad6,4":                       return .iPadPro9_7Inch
             case "iPad6,7", "iPad6,8":                       return .iPadPro12_9Inch
             case "iPad7,1", "iPad7,2":                       return .iPadPro12_9Inch2
@@ -111,7 +118,7 @@ open class DeviceInfo {
             case "iPad16,3", "iPad16,4":                     return .iPadProM4_11Inch
             case "iPad16,5", "iPad16,6":                     return .iPadProM4_13Inch
 
-            /*** iPod ***/
+                /*** iPod ***/
             case "iPod1,1":                                  return .iPodTouch1Gen
             case "iPod2,1":                                  return .iPodTouch2Gen
             case "iPod3,1":                                  return .iPodTouch3Gen
@@ -120,7 +127,7 @@ open class DeviceInfo {
             case "iPod7,1":                                  return .iPodTouch6Gen
             case "iPod9,1":                                  return .iPodTouch7Gen
 
-            /*** Simulator ***/
+                /*** Simulator ***/
             case "i386", "x86_64", "arm64":                  return .simulator
 
             default:
@@ -165,10 +172,10 @@ open class DeviceInfo {
                 return .screen5_5Inch
             case 812:
                 switch version() {
-                case .iPhone12Mini:
-                    return .screen5_4Inch
-                default:
-                    return .screen5_8Inch
+                    case .iPhone12Mini:
+                        return .screen5_4Inch
+                    default:
+                        return .screen5_8Inch
                 }
             case 844:
                 return .screen6_1Inch
@@ -178,10 +185,10 @@ open class DeviceInfo {
                 return .screen6_3Inch
             case 896:
                 switch version() {
-                case .iPhoneXS_Max, .iPhone11Pro_Max:
-                    return .screen6_5Inch
-                default:
-                    return .screen6_1Inch
+                    case .iPhoneXS_Max, .iPhone11Pro_Max:
+                        return .screen6_5Inch
+                    default:
+                        return .screen6_1Inch
                 }
             case 926:
                 return .screen6_7Inch
@@ -191,12 +198,12 @@ open class DeviceInfo {
                 return .screen6_9Inch
             case 1024:
                 switch version() {
-                case .iPadMini, .iPadMini2, .iPadMini3, .iPadMini4, .iPadMini5:
-                    return .screen7_9Inch
-                case .iPadPro10_5Inch:
-                    return .screen10_5Inch
-                default:
-                    return .screen9_7Inch
+                    case .iPadMini, .iPadMini2, .iPadMini3, .iPadMini4, .iPadMini5:
+                        return .screen7_9Inch
+                    case .iPadPro10_5Inch:
+                        return .screen10_5Inch
+                    default:
+                        return .screen9_7Inch
                 }
             case 1080:
                 return .screen10_2Inch
@@ -260,19 +267,19 @@ open class DeviceInfo {
 extension DeviceInfo {
     static public var hasDynamicIsland: Bool {
         switch version() {
-        case .iPhone14Pro,
-                .iPhone14Pro_Max,
-                .iPhone15,
-                .iPhone15Plus,
-                .iPhone15Pro,
-                .iPhone15Pro_Max,
-                .iPhone16,
-                .iPhone16Plus,
-                .iPhone16Pro,
-                .iPhone16Pro_Max:
-            return true
-        default:
-            return false
+            case .iPhone14Pro,
+                    .iPhone14Pro_Max,
+                    .iPhone15,
+                    .iPhone15Plus,
+                    .iPhone15Pro,
+                    .iPhone15Pro_Max,
+                    .iPhone16,
+                    .iPhone16Plus,
+                    .iPhone16Pro,
+                    .iPhone16Pro_Max:
+                return true
+            default:
+                return false
         }
     }
 }
@@ -335,6 +342,11 @@ extension DeviceInfo {
         case iPhone16Plus
         case iPhone16Pro
         case iPhone16Pro_Max
+        case iPhone16e
+        case iPhone17
+        case iPhone17Pro
+        case iPhone17Pro_Max
+        case iPhoneAir
 
         /*** iPad ***/
         case iPad1
@@ -360,6 +372,8 @@ extension DeviceInfo {
         case iPadMini6
         case iPadAirM2_11Inch
         case iPadAirM2_13Inch
+        case iPadAirM3_11Inch
+        case iPadAirM3_13Inch
 
         /*** iPadPro ***/
         case iPadPro9_7Inch
@@ -395,14 +409,14 @@ extension DeviceInfo {
 }
 //MARK: - Type
 extension DeviceInfo {
-    
+
     public enum `Type`: String {
-        #if os(iOS)
+#if os(iOS)
         case iPhone
         case iPad
         case iPod
         case simulator
-        #elseif os(OSX)
+#elseif os(OSX)
         case iMac
         case macMini
         case macPro
@@ -410,7 +424,7 @@ extension DeviceInfo {
         case macBookAir
         case macBookPro
         case xserve
-        #endif
+#endif
         case unknown
     }
 }
@@ -418,7 +432,7 @@ extension DeviceInfo {
 extension DeviceInfo {
     public enum Size: Int, Comparable {
         case unknownSize = 0
-        #if os(iOS)
+#if os(iOS)
         /// iPhone 2G, 3G, 3GS, 4, 4s, iPod Touch 4th gen.
         case screen3_5Inch
         /// iPhone 5, 5s, 5c, SE, iPod Touch 5-7th gen.
@@ -461,7 +475,7 @@ extension DeviceInfo {
         case screen12_9Inch
         /// iPad Pro (13-inch)
         case screen13Inch
-        #elseif os(OSX)
+#elseif os(OSX)
         case screen11Inch
         case screen12Inch
         case screen13Inch
@@ -472,8 +486,8 @@ extension DeviceInfo {
         case screen21_5Inch
         case screen24Inch
         case screen27Inch
-        #endif
-        
+#endif
+
         static public func <(lhs: Size, rhs: Size) -> Bool {
             return lhs.rawValue < rhs.rawValue
         }
@@ -483,5 +497,5 @@ extension DeviceInfo {
         }
     }
 
-  
+
 }
