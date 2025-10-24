@@ -371,4 +371,21 @@ public extension Date {
         }
         return true
     }
+
+    var gmtOffsetString: String {
+        let secondsFromGMT = TimeZone.current.secondsFromGMT()
+        let hours = secondsFromGMT / 3600
+        let minutes = abs(secondsFromGMT % 3600) / 60
+        let sign = hours >= 0 ? "+" : "-"
+
+        return String(format: "GMT%@%02d:%02d", sign, abs(hours), minutes)
+    }
+
+    var formatted_ddMMMyyPipeHHmm: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateFormat = "dd MMM yy '|' HH:mm"
+
+        return dateFormatter.string(from: self)
+    }
 }
