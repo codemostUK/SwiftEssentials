@@ -8,6 +8,7 @@
 import UIKit
 
 /// An open controller that manages a view's layout, expanding it when the keyboard appears and shrinking it when the keyboard hides.
+@MainActor
 open class ExpandableByKeyboardController: NSObject, NotificationSubscriber {
 
     @IBOutlet public weak var scrollView: UIScrollView! {

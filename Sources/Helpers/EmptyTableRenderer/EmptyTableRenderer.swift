@@ -9,19 +9,21 @@ import Foundation
 import UIKit
 
 /// Delegate protocol for handling actions in an empty table view.
+@MainActor
 public protocol EmptyTableRendererDelegate: NSObjectProtocol {
     func didRequestNewItem()
 }
 
 /// Default implementatuon of EmptyTableRendererDelegate protocol's didRequestNewItem method.
 public extension EmptyTableRendererDelegate {
-    func didRequestNewItem() {}
+    @MainActor func didRequestNewItem() {}
 }
 
 /// Protocol for a table view cell used by `EmptyTableRenderer`. The cell must conform to `FixedHeight`.
 public protocol EmptyTableRendererCellDelegate: UITableViewCell, FixedHeight {}
 
 /// An open class for rendering a table view with an empty state using a specific cell type.
+@MainActor
 open class EmptyTableRenderer: NSObject {
 
     public var emptyCellClass: EmptyTableRendererCellDelegate.Type

@@ -10,6 +10,7 @@ import UIKit
 
 /// Opens the specified URL link in the browser.
 /// - Parameter link: The string representing the URL to open.
+@MainActor
 public func goto(_ link: String?) {
     if let link = link, let linkTogo = URL(string: link) {
         UIApplication.shared.open(linkTogo.sanitise)
@@ -18,6 +19,7 @@ public func goto(_ link: String?) {
 
 /// Opens the specified URL in the browser.
 /// - Parameter url: The `URL` to open.
+@MainActor
 public func goto(_ url: URL) {
     UIApplication.shared.open(url.sanitise)
 }
@@ -27,12 +29,14 @@ public func goto(_ url: URL) {
 ///   - link: The string representing the URL to open.
 ///   - afterSeconds: The delay (in seconds) before opening the URL.
 public func goto(_ link: String?, _ afterSeconds: Double) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + afterSeconds, execute: {
+    Task { @MainActor in
+        try? await Task.sleep(nanoseconds: UInt64(afterSeconds * 1_000_000_000))
         goto(link)
-    })
+    }
 }
 
 /// Opens the app's settings in the system preferences.
+@MainActor
 public func gotoSettings() {
     if let url = URL(string: UIApplication.openSettingsURLString) {
         UIApplication.shared.open(url)
