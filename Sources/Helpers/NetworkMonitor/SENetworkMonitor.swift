@@ -10,7 +10,7 @@ import Network
 
 /// A network monitor class that tracks the device's connectivity and connection type.
 /// It uses `NWPathMonitor` to observe changes in network status and posts notifications when the connection state changes.
-open class SENetworkMonitor {
+open class SENetworkMonitor: @unchecked Sendable {
 
     /// Returns `true` if the device is connected to the internet.
     public static var isConnected: Bool {
@@ -23,7 +23,7 @@ open class SENetworkMonitor {
     }
 
     /// Singleton instance of `SENetworkMonitor`.
-    private static let shared = SENetworkMonitor()
+    nonisolated(unsafe) private static let shared = SENetworkMonitor()
 
     /// A boolean that tracks the device's connection status.
     private var isConnected: Bool = false {
@@ -48,7 +48,7 @@ open class SENetworkMonitor {
     /// Initializes the network monitor and starts observing network changes.
     public init() {
         monitor.pathUpdateHandler = { [weak self] path in
-            guard let self = self else { return }
+            guard let self else { return }
             self.isConnected = path.status == .satisfied
 
             if path.usesInterfaceType(.wifi) {
