@@ -9,7 +9,7 @@ import UIKit
 
 /// An open controller that manages a view's layout, expanding it when the keyboard appears and shrinking it when the keyboard hides.
 @MainActor
-open class ExpandableByKeyboardController: NSObject, NotificationSubscriber {
+open class ExpandableByKeyboardController: NSObject, @preconcurrency NotificationSubscriber {
 
     @IBOutlet public weak var scrollView: UIScrollView! {
         didSet {
@@ -72,7 +72,7 @@ public extension ExpandableByKeyboardController {
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             // Calculate the height of the keyboard, accounting for safe area insets.
-            let keyboardHeight = keyboardFrame.size.height - (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0)
+            let keyboardHeight = keyboardFrame.size.height - (parentView?.window?.safeAreaInsets.bottom ?? 0.0)
 
             // Adjust the scroll view content inset to make room for the keyboard.
             if scrollView != nil {
