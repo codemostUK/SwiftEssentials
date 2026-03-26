@@ -39,26 +39,24 @@ public extension UILabel {
     ///   - string: The HTML string to be rendered as attributed text.
     ///   - forceColor: An optional color to override the text color in the HTML.
     func setAttributedString(string: String, forceColor: UIColor? = nil) {
-        Task { @MainActor in
-            // Convert the input string into data for parsing.
-            guard let data = string.data(using: .unicode) else { return }
-            do {
-                // Parse the HTML data into an attributed string.
-                let mutableAttributedString = try NSMutableAttributedString(data: data,
-                    options: [.documentType: NSAttributedString.DocumentType.html,
-                              .characterEncoding: NSUnicodeStringEncoding],
-                    documentAttributes: nil)
+        // Convert the input string into data for parsing.
+        guard let data = string.data(using: .unicode) else { return }
+        do {
+            // Parse the HTML data into an attributed string.
+            let mutableAttributedString = try NSMutableAttributedString(data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html,
+                          .characterEncoding: NSUnicodeStringEncoding],
+                documentAttributes: nil)
 
-                // If a forceColor is provided, apply it to the entire string.
-                if let forceColor {
-                    mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: forceColor, range: NSRange(location: 0, length: mutableAttributedString.length))
-                }
-
-                // Set the attributed text on the label.
-                self.attributedText = mutableAttributedString
-            } catch {
-                // Handle any errors in converting the string to attributed text.
+            // If a forceColor is provided, apply it to the entire string.
+            if let forceColor {
+                mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: forceColor, range: NSRange(location: 0, length: mutableAttributedString.length))
             }
+
+            // Set the attributed text on the label.
+            self.attributedText = mutableAttributedString
+        } catch {
+            // Handle any errors in converting the string to attributed text.
         }
     }
 

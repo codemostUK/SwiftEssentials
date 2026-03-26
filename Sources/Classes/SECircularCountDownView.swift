@@ -8,7 +8,8 @@
 import UIKit
 
 /// Protocol for handling countdown completion events.
-public protocol SECircularCountDownViewDelegate: AnyObject {
+@MainActor
+public protocol SECircularCountDownViewDelegate: AnyObject, Sendable {
     /// Called when the countdown finishes.
     func timeOver(countDownView: SECircularCountDownView)
 }
